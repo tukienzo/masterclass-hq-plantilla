@@ -1,0 +1,524 @@
+/* ═══════════════════════════════════════════════════════════════════════════════════════════
+   CALCO DE LA REFERENCIA v2 — 14-oct-2026
+   Capa final, cargada DESPUÉS de atlas.css: redefine el armazón y los componentes con los
+   valores medidos sobre una captura DIRECTA de la referencia (no del video), así que los colores son
+   los reales. Revertir es sacar el <link> de index.html.
+
+   Medidas (captura a 1512 px de ancho = píxeles CSS):
+   - Fondo de la app: degradé vertical #121214 → #0b0b0d. La barra lateral va SOBRE ese fondo
+     (no es una tarjeta): lo único que flota es el área de contenido.
+   - Panel de contenido: borde #232326, radio 20, degradé diagonal #18191c → #0f0f12, a 14 px
+     del borde de la ventana. Scrollea por dentro (la barra lateral queda quieta).
+   - Dorado: botón primario #d4af55 arriba → #c9a34b abajo; subrayado de pestaña #cda74e;
+     barras de datos #f2c14b (más vivo). Activo de segmentado: fondo #2c281f, texto dorado.
+   - Tarjetas #161618 con borde #242427, radio 16. Controles #161619 / #232327.
+   - Números grandes en Inter (NO mono), semibold, interletra muy cerrada.
+   ═══════════════════════════════════════════════════════════════════════════════════════════ */
+
+:root{
+  /* sRGB reales (las capturas vienen en Display P3; convertidas dan el dorado del sistema de diseño) */
+  --gold:#d4a53a; --gold-hi:#dcad43; --gold-lo:#d0a136; --gold-bar:#fbbf24; --gold-txt:#d9ae3e;
+  --gold-dim:rgba(212,165,58,.14); --gold-line:rgba(212,165,58,.34);
+  --bg:#0e0e11; --side:#0e0e11;
+  --surface:#161618; --surface2:#1b1b1e; --surface3:#232327;
+  --ink:#ededee; --muted:#97979e; --muted2:#6c6c72;
+  --line:#242427; --line-strong:#2e2e33;
+  --ctrl:#161619; --ctrl2:#1e1e22; --ctrl-line:#2a2a2f;
+  /* acentos = paleta *-400 de Tailwind, como la referencia */
+  --verde:#34d399; --green:#34d399; --rojo:#f87171; --red:#f87171; --ambar:#fbbf24; --amber:#fbbf24;
+  --azul:#60a5fa; --blue:#60a5fa; --violeta:#a78bfa; --purple:#a78bfa; --rosa:#f472b6; --cian:#2dd4bf; --naranja:#fb923c; --lima:#a3e635;
+  --side-w:272px; --marco:14px;
+  --r-s:8px; --r-m:10px; --r-l:16px; --r-xl:20px;
+  --lift:linear-gradient(180deg,rgba(255,255,255,.028),rgba(255,255,255,0) 55%);
+  --shadow:none;
+}
+
+/* ── fondo y armazón ─────────────────────────────────────────────────────────────────────── */
+html{background:#0e0e11}
+body{background:linear-gradient(180deg,#121214 0%,#0b0b0d 100%) fixed; font-size:14px}
+.wrap{margin:0; border:0; border-radius:0; background:none; box-shadow:none; overflow:visible;
+  min-height:100vh; display:flex}
+
+aside{
+  position:sticky; top:0; height:100vh; flex:0 0 var(--side-w); width:var(--side-w);
+  background:none; border:0; border-radius:0; padding:18px 14px 12px 18px; z-index:10;
+}
+/* Un bug viejo: la barra lateral era un hijo flexible SIN ancho fijo y una
+   tabla ancha la aplastaba hasta dejarla en 50 px, con el contenido montado encima.
+   flex:0 0 + min-width:0 en el contenido lo corta de raíz en todas las pantallas. */
+main{
+  flex:1 1 auto; min-width:0; position:relative;
+  margin:var(--marco) var(--marco) var(--marco) 0; height:calc(100vh - var(--marco)*2);
+  overflow-y:auto; overflow-x:hidden; overscroll-behavior:contain;
+  border:1px solid #232326; border-radius:var(--r-xl);
+  background:linear-gradient(155deg,#18191c 0%,#131316 38%,#0f0f12 100%);
+  padding:0 0 64px; max-width:none;
+}
+main::-webkit-scrollbar{width:8px}
+main::-webkit-scrollbar-thumb{background:#2a2a2e; border-radius:999px; border:2px solid transparent; background-clip:padding-box}
+.view{padding:0 40px}
+.tw{max-width:100%}
+
+/* ── barra lateral: marca ── */
+aside .logo{flex-direction:row; align-items:center; gap:12px; padding:2px 8px 18px; margin:0 0 16px;
+  border-bottom:1px solid #222225}
+aside .logo-mark{width:34px; height:34px; border-radius:0; background:none; box-shadow:none; display:grid; place-items:center}
+aside .logo-mark svg{width:34px; height:34px}
+aside .logo-txt{gap:2px}
+aside .logo b{font-size:15.5px; font-weight:600; letter-spacing:-.01em; color:#ececee}
+aside .logo small{font-size:10.5px; letter-spacing:.15em; color:#8b8b91; font-weight:600; margin-top:0}
+
+/* ── tarjeta del negocio + aviso de conexiones ── */
+.side-card{border-radius:12px; padding:11px 14px; gap:12px; margin-bottom:10px; font-size:14px}
+.side-card > svg{flex:none}
+.side-card.entrega{background:linear-gradient(180deg,#30281e 0%,#2a231b 100%); border-color:#453922; color:var(--gold)}
+.side-card.entrega > svg{width:20px; height:20px}
+.side-card .sc-t{gap:2px}
+.side-card .sc-t em{font-size:10px; letter-spacing:.14em; font-weight:600; color:#a49c8e; opacity:1}
+.side-card .sc-t b{font-size:15px; font-weight:600; color:#f3f3f4}
+.side-card i{font-size:17px; color:#85858b; opacity:1; font-style:normal}
+.side-card.salud{background:#311b1c; border-color:#873030; color:#f87171; padding:8px 14px; font-size:14px; font-weight:500}
+.side-card.salud b{color:#f87171; font-weight:500; font-size:14px}
+.side-card.salud.ok{background:rgba(52,211,153,.07); border-color:rgba(52,211,153,.28); color:var(--verde)}
+.side-card.salud.ok b{color:var(--verde)}
+.side-card.salud.probando{background:var(--ctrl); border-color:var(--line); color:var(--muted)}
+
+/* ── menú ── */
+#nav{padding:8px 4px 10px 0; margin-top:6px}
+#nav::-webkit-scrollbar{width:4px}
+#nav::-webkit-scrollbar-thumb{background:#2a2a2e}
+aside .group, #nav a.suelto{
+  display:flex; align-items:center; height:40px; padding:0 12px; margin:0 0 3px; border-radius:10px;
+  font-size:15px; font-weight:500; letter-spacing:-.005em; color:#c5c5c9; background:none; box-shadow:none;
+  border:0; cursor:pointer; text-decoration:none;
+}
+aside .group:first-child{margin-top:0}
+aside .group:hover, #nav a.suelto:hover{background:#18181b; color:#f0f0f1}
+aside .group.activo, aside .group.activo.cerrado{background:none; box-shadow:none; color:#ededee}
+aside .group .navicon, #nav a.suelto .navicon{display:block; width:20px; height:20px; margin-right:14px; color:var(--muted); opacity:1; stroke-width:1.6}
+aside .group.activo .navicon{color:var(--gold)}
+/* chevron fino como el de la referencia (abajo abierto, derecha cerrado) en vez del carácter › */
+aside .group .gchev{margin-left:auto; font-size:0; width:8px; height:8px; transform:rotate(45deg);
+  border-right:1.6px solid var(--tenue); border-bottom:1.6px solid var(--tenue); margin-right:4px; margin-top:-4px; transition:transform .18s}
+aside .group.cerrado .gchev{transform:rotate(-45deg); margin-top:0}
+
+/* sub-ítems: ícono chico, guía vertical y riel dorado en el activo */
+#nav a:not(.grupo-cerrado):not(.suelto){
+  display:flex; align-items:center; height:35px; margin:0 0 2px 22px; padding:0 12px 0 16px;
+  border-left:1px solid #252529; border-radius:0 10px 10px 0; font-size:14px; font-weight:500; color:#b2b2b8;
+}
+#nav a .navicon{display:block; width:17px; height:17px; margin-right:12px; color:#8a8a90; opacity:1; stroke-width:1.6}
+#nav a:not(.suelto):hover{background:#18181b; color:#f0f0f1}
+aside nav a.active, #nav a.active:not(.suelto), #nav a.suelto.active{background:#1e1e21; color:#f5f5f6; font-weight:500}
+aside nav a.active::before{left:-1px; top:9px; bottom:9px; width:3px; border-radius:3px; background:var(--gold)}
+#nav a.suelto.active::before{left:0}
+aside nav a.active .navicon{color:var(--gold)}
+#nav a .chip{margin-left:auto}
+
+/* ── pie: objetivo del mes con la forma del "Onboarding" de la referencia ── */
+aside .side-plan{background:none; border:0; border-top:1px solid #222225; border-radius:0; padding:14px 8px 12px; margin:auto 0 0}
+.sp-fila{display:flex; align-items:flex-start; gap:12px}
+.sp-fila > svg{width:20px; height:20px; flex:none; color:var(--muted); margin-top:1px}
+.sp-col{flex:1; min-width:0}
+.sp-nombre{font-size:15px; font-weight:500; color:#d2d2d6; line-height:1.2}
+aside .side-plan .sp-track{height:2px; background:#2c2c30; border-radius:2px; margin:9px 0 7px; overflow:hidden}
+aside .side-plan .sp-track i{background:var(--gold-bar)}
+.sp-pie{font-size:11.5px; font-weight:500; color:var(--gold)}
+.sp-pie.bajo{color:var(--rojo)}
+
+/* ── pie: usuario ── */
+aside .sidebar-foot{position:relative; padding:12px 6px 2px; margin-top:4px; border-top:1px solid #222225; gap:11px; cursor:pointer}
+aside .sidebar-foot .avatar{width:30px; height:30px; background:rgba(212,165,58,.16); border:1px solid rgba(212,165,58,.3); color:var(--gold); font-size:12.5px}
+aside .sidebar-foot .sf-name{font-size:13.5px; font-weight:600; color:#ededee}
+aside .sidebar-foot .sf-sub{font-size:11.5px; color:#85858b; max-width:150px}
+aside .sidebar-foot .rol-chip, aside .sidebar-foot .btn-salir{display:none}
+.sf-mas{margin-left:auto; color:var(--tenue); font-size:18px; line-height:1; padding:2px 4px}
+.sf-menu{position:absolute; left:0; right:0; bottom:calc(100% + 6px); background:#18181b; border:1px solid #2c2c31;
+  border-radius:12px; padding:6px; box-shadow:0 18px 40px -12px rgba(0,0,0,.8); display:none; z-index:30; cursor:default}
+.sf-menu.open{display:block}
+.sf-menu button, .sf-menu label{display:flex; align-items:center; gap:10px; width:100%; text-align:left; background:none; border:0;
+  color:#d6d6da; font:inherit; font-size:13px; padding:8px 10px; border-radius:8px; cursor:pointer}
+.sf-menu button:hover{background:#222226}
+.sf-menu svg{width:15px; height:15px; color:var(--muted); flex:none}
+.sf-menu select{flex:1; min-width:0; background:var(--ctrl); color:var(--ink); border:1px solid var(--ctrl-line); border-radius:7px; font:inherit; font-size:12px; padding:4px 6px}
+.sf-menu hr{border:0; border-top:1px solid #2a2a2e; margin:4px 2px}
+aside #verComoWrap, aside .foot-credito{display:none}
+
+/* ── barra superior ── */
+.appbar{height:56px; padding:0 20px; gap:12px; border-bottom:1px solid #232326;
+  background:rgba(23,24,27,.84); backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px);
+  position:sticky; top:0; z-index:20; border-radius:var(--r-xl) var(--r-xl) 0 0}
+.appbar > .appbar-ico:first-child{width:34px; height:34px; border-radius:10px; background:#1f1f23; border:1px solid #2c2c31; color:#a3a3a9}
+.appbar > .appbar-ico:first-child svg{width:18px; height:18px}
+.appbar-sep{width:1px; height:22px; background:#2a2a2e; flex:none}
+.migas{font-size:15px; gap:10px; color:var(--muted); font-weight:500}
+.migas .miga-ico{display:inline-flex; color:var(--muted)}
+.migas .miga-ico svg{width:18px; height:18px; stroke:currentColor; fill:none; stroke-width:1.6; stroke-linecap:round; stroke-linejoin:round}
+.migas b{color:#f2f2f3; font-weight:500}
+.migas i{font-style:normal; opacity:1; color:#6c6c72; font-size:16px}
+.appbar .searchbar{display:none}
+.appbar-acts{margin-left:auto; gap:16px}
+.appbar-acts .appbar-ico{width:30px; height:30px; border:0; background:none; color:#9a9aa0; border-radius:8px}
+.appbar-acts .appbar-ico:hover{color:#f0f0f1; background:#1f1f23}
+.appbar-acts .appbar-ico svg{width:19px; height:19px}
+.appbar-dot{top:4px; right:5px; width:7px; height:7px; background:var(--gold); box-shadow:0 0 0 2px #17181b}
+/* el sparkle de arriba ya abre el Cerebro: el botón flotante sobraba (la referencia no lo tiene) */
+#chatbtn{display:none !important}
+#chatpanel{border-radius:16px; right:14px; bottom:14px; height:min(640px,calc(100dvh - 28px)); background:#161618; border-color:#2c2c31}
+
+/* ── título de la pantalla ── */
+.pagehead{padding:30px 40px 20px; align-items:center}
+.pagehead h1{font-size:29px; font-weight:700; letter-spacing:-.035em; color:#fbfbfc; line-height:1.1}
+.pagehead .meta{display:none}
+.pagehead .der #aglinks{min-height:36px; padding:0 15px; border-radius:10px; background:var(--ctrl); border:1px solid var(--ctrl-line);
+  color:var(--ink); font:inherit; font-size:13.5px; font-weight:500; cursor:pointer}
+.pagehead .der #aglinks:hover{background:var(--ctrl2)}
+
+/* ── tipografía de números: Inter, no mono (así se ve en la referencia) ── */
+.tile>b,.tile>strong,.ui-tile-v b,.plata-h b,.plata-neto>b,.messel b,
+.k b,.kpi-v,.big,.cifra,.ui-dona-centro b,.ui-emb-n{
+  font-family:'Inter',system-ui,sans-serif; font-variant-numeric:tabular-nums}
+/* montos y conteos: Inter con cifras tabulares (así en la referencia); la mono queda para fechas y códigos */
+.num,td.num,.plata-row .n,.ui-rank-val,.comp-plat b,.ui-podio-p strong{
+  font-family:'Inter',system-ui,sans-serif; font-variant-numeric:tabular-nums}
+.mono,.ui-fecha{font-family:'JetBrains Mono',ui-monospace,monospace; font-variant-numeric:tabular-nums slashed-zero; font-feature-settings:"zero" 1; font-size:.92em; color:var(--muted)}
+
+/* ── tiles de KPI ── */
+.tile,.ui-tile{background:linear-gradient(180deg,#1a1a1d 0%,#151517 100%); border:1px solid #27272b; border-radius:16px; box-shadow:none}
+.tile{padding:18px 20px 18px}
+.ui-tile{padding:18px 20px 0}
+.tile > span, .ui-micro{font-size:11.5px; letter-spacing:.12em; font-weight:600; color:var(--muted)}
+.tile b{font-size:32px; font-weight:600; letter-spacing:-.045em; line-height:1.05}
+.ui-tile-v b{font-size:32px; font-weight:600; letter-spacing:-.045em}
+.ui-tile-v small{font-size:15px; font-weight:600; color:#d6d6da; letter-spacing:-.01em}
+.tile p,.tile small,.ui-tile-sub{font-size:13px; color:var(--muted)}
+.ui-tile .ui-tile-sub:last-child{margin-bottom:18px}
+.ui-delta{font-size:11.5px; font-weight:600; padding:2px 8px; border-radius:7px}
+.ui-delta.up{color:#4ade80; background:rgba(52,211,153,.12)}
+.ui-delta.down{color:#f87171; background:rgba(248,113,113,.12)}
+.ui-tile-ico{width:auto; height:auto; border:0; background:none; border-radius:0}
+.ui-tile-ico svg{width:17px; height:17px}
+.tiles{gap:12px}
+.ui-grid,.ui-grid-3{gap:14px}
+
+/* ── tarjetas ── */
+.card{background:linear-gradient(180deg,#18181b 0%,#151517 100%); border:1px solid #242427; border-radius:16px; padding:20px 22px; box-shadow:none}
+.card>h3{font-size:15.5px; font-weight:600; letter-spacing:-.01em}
+.ui-cardhead{gap:14px; margin:-20px -22px 18px; padding:18px 22px; border-bottom:1px solid #242427}
+.ui-cardhead-ico{width:36px; height:36px; border-radius:10px; border:0; background:color-mix(in srgb,var(--c,var(--gold)) 15%,#161618)}
+.ui-cardhead-ico svg{width:18px; height:18px}
+.ui-cardhead-t b{font-size:16px; font-weight:600}
+.ui-cardhead-t span{font-size:13.5px; color:var(--muted)}
+.ui-cardhead-acc{font-weight:600; font-size:13.5px}
+.grid2{gap:14px}
+
+/* ── tablas ── */
+.tw{background:linear-gradient(180deg,#18181b 0%,#151517 100%); border:1px solid #242427; border-radius:16px}
+table{font-size:13.5px}
+th{background:#17171a; color:var(--muted); font-size:11px; font-weight:600; letter-spacing:.1em; padding:13px 16px; border-bottom:1px solid #242427}
+td{padding:13px 16px; border-bottom:1px solid #1f1f22}
+tbody tr:hover td{background:rgba(255,255,255,.022)}
+td b, td strong{font-weight:600; color:#f0f0f1}
+
+/* notas largas de "cómo se calcula": cerradas por defecto, se abren con un clic (menos ruido) */
+.tfoot{cursor:pointer}
+.tfoot:not(.abierto){font-size:0 !important; padding-top:10px; padding-bottom:10px}
+.tfoot:not(.abierto) *{display:none}
+.tfoot:not(.abierto)::before{content:'ⓘ  Cómo se calcula'; font-size:12.5px; color:var(--muted); font-weight:500}
+.tfoot:not(.abierto):hover::before{color:#d6d6da}
+
+/* ── controles segmentados (período, filtros, toggles) ── */
+.ui-chips.caja,.messel,.ui-pasos{background:var(--ctrl); border:1px solid var(--ctrl-line); border-radius:10px; padding:3px; gap:2px}
+.ui-chip,.ui-paso{border-radius:7px; padding:6px 11px; font-size:13px; font-weight:500; color:#9a9aa0}
+.ui-chip:hover,.ui-paso:hover{background:#202024; color:#ececee}
+.ui-chip.on,.ui-paso.on{background:#2e2920; color:var(--gold-txt); font-weight:600}
+.ui-chip.on .ui-chip-badge,.ui-paso.on b{background:rgba(212,165,58,.2); color:var(--gold)}
+.messel{background:#1c1c20}
+.messel button{border-radius:7px; color:var(--muted); font-size:17px; padding:4px 11px}
+.messel b{font-size:14px; font-weight:600; color:#f0f0f1; min-width:130px}
+
+/* chips de filtro sueltos (los .fchip del hub) */
+.fchip{background:var(--ctrl); border:1px solid var(--ctrl-line); color:#9a9aa0; border-radius:8px; padding:6px 12px; font-size:13px; font-weight:500}
+.fchip:hover{color:#ececee; background:#1e1e22; border-color:#34343a}
+.fchip.on, .fchip.on:hover{background:rgba(212,165,58,.14); border-color:rgba(212,165,58,.34); color:var(--gold); font-weight:600; filter:none}
+.estrow .fchip{padding:4px 10px; font-size:12px}
+
+/* pestañas de página: texto + subrayado dorado */
+.tab{font-size:15px; font-weight:500; color:var(--muted); padding:10px 14px; margin-right:2px; border-bottom:2px solid transparent}
+.tab:hover{color:#ececee}
+.tab.on{color:#f5f5f6; border-bottom-color:#d4a539}
+
+/* ── botones ── */
+.btn,.ui-btn,.toolbar .btn{min-height:36px; padding:0 15px; border-radius:10px; background:var(--ctrl); border:1px solid var(--ctrl-line);
+  color:#ececee; font-size:13.5px; font-weight:500; gap:8px; display:inline-flex; align-items:center; justify-content:center; box-shadow:none}
+.btn:hover,.ui-btn:hover,.toolbar .btn:hover{background:var(--ctrl2); border-color:#36363c}
+.btn.primary,.ui-btn.pri,.toolbar .btn.primary{background:linear-gradient(180deg,var(--gold-hi) 0%,var(--gold-lo) 100%); color:#20190a; border:0;
+  font-weight:600; box-shadow:inset 0 1px 0 rgba(255,255,255,.2),0 2px 12px rgba(212,165,58,.15)}
+.btn.primary:hover,.ui-btn.pri:hover,.toolbar .btn.primary:hover{filter:brightness(1.05)}
+.btn.chico,.ui-btn.chico{min-height:30px; padding:0 11px; font-size:12.5px; border-radius:8px; background:var(--ctrl); color:#c9c9cd; border:1px solid var(--ctrl-line)}
+
+/* ── campos ── */
+.toolbar select,.toolbar input,.ui-input,.ui-form input,.ui-form select,.ui-form textarea{
+  background:var(--ctrl); border:1px solid var(--ctrl-line); border-radius:10px; color:var(--ink); font-size:13.5px}
+.toolbar select,.toolbar input{min-height:36px; padding:0 12px}
+.toolbar input:focus,.toolbar select:focus,.ui-input:focus{outline:none; border-color:rgba(212,165,58,.5); box-shadow:0 0 0 3px rgba(212,165,58,.12)}
+
+/* ── chips de estado ── */
+.chip{border-radius:999px; padding:3px 10px; font-size:12px; font-weight:500; border-color:transparent}
+.chip.g{background:rgba(52,211,153,.12); border-color:transparent}
+.chip.r{background:rgba(248,113,113,.12); border-color:transparent}
+.chip.a{background:rgba(251,191,36,.12); border-color:transparent}
+.chip.b{background:rgba(110,180,247,.12); border-color:transparent}
+.chip.p{background:rgba(180,157,246,.12); border-color:transparent}
+.chip.oro{background:rgba(212,165,58,.14); border-color:transparent}
+
+/* ── barras de datos en el dorado vivo de la referencia ── */
+.ui-barra-riel{height:6px; background:#26262a}
+.ui-barra-riel i{background:var(--c,var(--gold-bar))}
+
+/* ── modales ── */
+.modal-overlay{background:rgba(0,0,0,.66); backdrop-filter:blur(2px)}
+.modal{background:#161618; border:1px solid #2a2a2e; border-radius:18px; padding:24px; box-shadow:0 30px 80px -20px rgba(0,0,0,.85)}
+
+/* ── avisos ── */
+.ui-aviso{border-radius:12px; padding:12px 16px; font-size:13.5px}
+
+/* ── Salud del negocio (Inicio): tinte del estado que se desvanece hacia abajo ── */
+.salud-strip{gap:14px}
+.salud-strip .ui-tile{
+  background:linear-gradient(180deg,color-mix(in srgb,var(--c) 9%,#161618) 0%,#141416 100%);
+  border-color:color-mix(in srgb,var(--c) 30%,#27272b);
+  box-shadow:0 0 0 1px color-mix(in srgb,var(--c) 6%,transparent),0 18px 40px -26px color-mix(in srgb,var(--c) 70%,transparent);
+}
+.salud-strip .ui-tile.c-gris{background:linear-gradient(180deg,#1a1a1d,#151517); border-color:#27272b; box-shadow:none}
+
+/* ── menú plegado ──
+   Riel de íconos (la referencia no tiene captura de este estado). Antes quedaban los nombres cortados encima de los
+   íconos (captura del 14-oct): el nombre de cada ítem es texto suelto dentro del <a>, así que se apaga
+   con font-size:0, quedan solo los íconos de los grupos y sus pantallas se abren en un menú flotante al pasar
+   el mouse (shell.js: navFlotante). */
+body.menu-plegado aside{flex-basis:72px; width:72px; padding-left:0; padding-right:0}
+body.menu-plegado aside .logo{justify-content:center; padding-left:0; padding-right:0}
+body.menu-plegado aside .logo-txt, body.menu-plegado .sp-col, body.menu-plegado .sp-fila, body.menu-plegado .sidebar-foot > div:not(.avatar):not(.sf-menu), body.menu-plegado .sf-mas{display:none}
+body.menu-plegado #nav{padding:4px 0 10px; overflow-x:hidden}
+body.menu-plegado aside .group, body.menu-plegado #nav a.suelto{display:flex; width:44px; height:42px; margin:0 auto 4px; padding:0; justify-content:center; font-size:0; border-radius:10px}
+/* atlas.css (diseño viejo del plegado) escondía los grupos y dejaba todos los ítems sueltos: acá mandan los
+   grupos. El display:none que pone aplicarPerfil va en línea, así que un grupo que tu perfil no ve sigue oculto. */
+body.menu-plegado .sidebar-foot{justify-content:center; padding-left:0; padding-right:0}
+body.menu-plegado aside .group .navicon, body.menu-plegado #nav a.suelto .navicon{margin:0}
+body.menu-plegado aside .group .gchev{display:none}
+body.menu-plegado #nav a:not(.suelto){display:none !important}
+body.menu-plegado aside .group.activo, body.menu-plegado #nav a.suelto.active{background:rgba(212,165,58,.1); border-color:rgba(212,165,58,.22)}
+body.menu-plegado aside .group.activo .navicon, body.menu-plegado #nav a.suelto.active .navicon{color:var(--gold)}
+body.menu-plegado #nav a.suelto.active::before{display:none}
+body.menu-plegado aside .group.fly-on, body.menu-plegado #nav a.suelto.fly-on{background:rgba(255,255,255,.06); color:var(--ink)}
+/* el menú flotante de un grupo, al lado del riel */
+.nav-fly{position:fixed; z-index:400; display:none; min-width:210px; max-width:270px; padding:6px; border-radius:12px; background:#18181b;
+  border:1px solid rgba(255,255,255,.08); box-shadow:0 18px 44px rgba(0,0,0,.55), inset 0 1px 0 rgba(255,255,255,.04)}
+.nav-fly.open{display:block; animation:navFlyIn .12s ease-out}
+@keyframes navFlyIn{from{opacity:0; transform:translateX(-4px)}}
+.nav-fly-t{padding:7px 10px 6px; font-size:11px; font-weight:600; letter-spacing:.1em; text-transform:uppercase; color:#6c6c71}
+.nav-fly a{display:flex; align-items:center; gap:10px; height:34px; padding:0 10px; border-radius:8px; color:#c9c9cd; font-size:14px; text-decoration:none; white-space:nowrap}
+.nav-fly a:hover{background:rgba(255,255,255,.05); color:#f0f0f1}
+.nav-fly a.active{background:rgba(255,255,255,.07); color:var(--ink); font-weight:500}
+.nav-fly .navicon{flex:none; width:16px; height:16px; fill:none; stroke:currentColor; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; color:var(--muted)}
+.nav-fly a.active .navicon{color:var(--gold)}
+.nav-fly a span{overflow:hidden; text-overflow:ellipsis}
+
+/* ── celular ── */
+@media(max-width:900px){
+  :root{--marco:0px}
+  .wrap{flex-direction:column}
+  aside{position:static; width:auto; height:auto; flex:none; padding:14px}
+  main{margin:0; height:auto; overflow:visible; border-radius:0; border-left:0; border-right:0}
+  .appbar{border-radius:0}
+  .view,.pagehead{padding-left:16px; padding-right:16px}
+}
+
+/* los montos en negrita DENTRO del texto chico de un tile no son el número grande del tile */
+.tile p b,.tile small b,.tile p strong,.ui-tile-sub b{font-size:inherit; letter-spacing:0; line-height:inherit; display:inline; font-weight:600; color:#d6d6da}
+/* fila de tiles pareja: todos del mismo ancho, como la grilla de la referencia */
+.tiles{display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:12px}
+.tiles > .tile{min-width:0}
+
+/* ── pestañas de la familia, debajo del título (Agendas · Setter · Orgánico…) ── */
+.pagehead{flex-wrap:wrap}
+.subtabs{flex:1 0 100%; display:flex; gap:2px; border-bottom:1px solid #242426; margin-top:16px; overflow-x:auto; scrollbar-width:none}
+.subtabs[hidden]{display:none}
+.subtab{padding:10px 14px 11px; font-size:15px; font-weight:500; color:var(--muted); text-decoration:none; border-bottom:2px solid transparent; margin-bottom:-1px; white-space:nowrap}
+.subtab:hover{color:#ececee}
+.subtab.on{color:#f5f5f6; border-bottom-color:#d4a539}
+
+/* ── controles de la pantalla en la cabecera (barra de período, etc.) ── */
+.pagehead .der{gap:10px}
+.page-extra{display:flex; align-items:center; gap:10px; flex-wrap:wrap}
+.page-extra:empty{display:none}
+.ui-icobtn{width:38px; height:38px; display:grid; place-items:center; border-radius:10px; background:var(--ctrl); border:1px solid var(--ctrl-line); color:#9a9aa0; cursor:pointer}
+.ui-icobtn:hover{color:#ececee; background:var(--ctrl2)}
+#ceo > .toolbar{display:none}
+
+/* ── Salud del negocio (Inicio) ── */
+.salud-strip{display:grid; grid-template-columns:repeat(5,minmax(0,1fr)); gap:14px; margin-bottom:8px}
+@media(max-width:1200px){.salud-strip{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:720px){.salud-strip{grid-template-columns:1fr}}
+.salud-t{position:relative; display:flex; flex-direction:column; min-height:164px; padding:18px 18px 16px; border-radius:16px; overflow:hidden;
+  background:linear-gradient(180deg,color-mix(in srgb,var(--c) 8%,#17171a) 0%,#141416 100%);
+  border:1px solid color-mix(in srgb,var(--c) 32%,#27272b);
+  box-shadow:0 0 0 1px color-mix(in srgb,var(--c) 5%,transparent),0 16px 40px -26px color-mix(in srgb,var(--c) 75%,transparent)}
+.salud-t.c-gris{background:linear-gradient(180deg,#1a1a1d,#151517); border-color:#27272b; box-shadow:none}
+.salud-h{display:flex; align-items:center; justify-content:space-between}
+.salud-h span{font-size:11.5px; font-weight:600; letter-spacing:.12em; text-transform:uppercase; color:var(--muted)}
+.salud-h i{width:7px; height:7px; border-radius:50%; background:var(--c); box-shadow:0 0 10px var(--c)}
+.salud-t > b{display:block; margin-top:14px; font-size:25px; font-weight:600; letter-spacing:-.035em; line-height:1.15; color:var(--c)}
+.salud-t.c-gris > b{color:#d6d6da}
+.salud-t > small{display:block; margin-top:6px; font-size:12.5px; line-height:1.45; color:var(--muted)}
+.salud-mini{display:flex; align-items:flex-end; gap:2px; height:30px; margin-top:auto; padding-top:10px}
+.salud-mini i{flex:1; min-width:2px; border-radius:2px 2px 0 0; background:color-mix(in srgb,var(--c) 70%,transparent)}
+.salud-t.c-gris .salud-mini i{background:#3a3a40}
+
+/* ── Tablero del Inicio ── */
+.ceogrid{gap:16px}
+.ceo-rail .ui-card-b .ceo-row{padding:9px 0}
+.cfg-lista{display:flex; flex-direction:column}
+.cfg-fila{display:flex; align-items:center; justify-content:space-between; gap:12px; padding:12px 2px; border-bottom:1px solid #222225; font-size:14px; color:#dcdcdf}
+.cfg-fila:last-child{border-bottom:0}
+
+/* ═══════════════════════════════════════════════════════════════════════════════════════════
+   ARMAZÓN AL PÍXEL — medidas del relevamiento de la referencia (colores sRGB)
+   ═══════════════════════════════════════════════════════════════════════════════════════════ */
+:root{
+  --muted:#97979e; --tenue:#6c6c71; --ink:#e9e9ec; --titulo:#fbfbfc;
+  --marco:12px; --side-w:272px; --r-xl:20px;
+}
+/* fondo: degradé + resplandor cálido arriba a la izquierda + neutro arriba a la derecha */
+html{background:#0d0d10}
+body{background:
+  radial-gradient(520px 300px at 82% -40px, rgba(255,255,255,.065), transparent 70%),
+  radial-gradient(360px 240px at 58% -40px, rgba(120,160,255,.03), transparent 70%),
+  radial-gradient(420px 360px at 0 0, rgba(200,110,40,.05), transparent 70%),
+  linear-gradient(180deg,#16161a 0,#121216 30%,#0f0f12 65%,#0d0d10 100%) fixed;
+  color:var(--ink)}
+/* el marco es transparente: lo que lo hace flotar es el borde, el filo de arriba y la sombra */
+main{margin:12px 12px 12px 12px; height:calc(100vh - 24px); display:flex; flex-direction:column; overflow:hidden; padding:0;
+  background:transparent; border:1px solid rgba(255,255,255,.07); border-radius:20px;
+  box-shadow:0 10px 40px rgba(0,0,0,.45), inset 0 1px 0 rgba(255,255,255,.03)}
+.main-scroll{flex:1; min-height:0; overflow-y:auto; overflow-x:hidden; overscroll-behavior:contain; padding-bottom:56px}
+.main-scroll::-webkit-scrollbar{width:6px}
+.main-scroll::-webkit-scrollbar-thumb{background:#242426; border-radius:999px}
+.main-scroll::-webkit-scrollbar-track{background:transparent}
+
+/* barra superior: sin fondo propio, 56 de alto, padding 22 */
+.appbar{position:relative; flex:none; height:56px; padding:0 22px; gap:12px; background:none; backdrop-filter:none; -webkit-backdrop-filter:none;
+  border-bottom:1px solid rgba(255,255,255,.07); border-radius:20px 20px 0 0}
+.appbar > .appbar-ico:first-child{width:34px; height:34px; border-radius:8px; background:#232327; border:1px solid #323236; color:#c6c6cb}
+.appbar-sep{width:1px; height:20px; background:#28282a}
+.migas{gap:12px; font-size:13px; font-weight:400; letter-spacing:-.02em; color:var(--tenue)}
+.migas .miga-ico{color:var(--tenue)}
+.migas .miga-ico svg{width:16px; height:16px}
+.migas i{color:var(--tenue); font-size:15px}
+.migas b{color:var(--ink); font-weight:600}
+.appbar-acts{gap:12px}
+.appbar-acts .appbar-ico{width:34px; height:34px; color:var(--tenue)}
+.appbar-acts .appbar-ico svg{width:18px; height:18px}
+.appbar-acts .appbar-ico:hover{background:rgba(255,255,255,.05); color:#d6d6da}
+.appbar-acts .appbar-ico.on{background:rgba(212,165,58,.15); color:var(--gold)}
+.appbar-ico.bell.no-leidas{color:#d9ae3e}
+.appbar-dot{top:6px; right:7px; width:8px; height:8px; background:#d4a539; box-shadow:0 0 0 2px #121216}
+
+/* pantalla: padding 32 a los costados */
+.pagehead{padding:28px 32px 18px}
+.view{padding:0 32px}
+.pagehead h1{font-size:28px; font-weight:700; letter-spacing:-.03em; color:var(--titulo); word-spacing:.04em}
+body[data-vista="ceo"] .pagehead h1{font-size:26px}
+
+/* ── barra lateral ── */
+aside{flex:0 0 272px; width:272px; padding:12px 12px 12px}
+aside .logo{height:66px; padding:0 8px; margin:0 0 17px; gap:11px; border-bottom:1px solid rgba(255,255,255,.07)}
+aside .logo-mark, aside .logo-mark svg{width:32px; height:32px}
+aside .logo b{font-size:14px; font-weight:500; letter-spacing:-.02em; color:#c6c6cb}
+aside .logo small{font-size:10px; font-weight:500; letter-spacing:.1em; color:var(--muted)}
+.side-card{margin:0 8px 8px; width:auto}
+.side-card.entrega{min-height:54px; padding:0 13px; border-radius:12px; gap:12px; border:1px solid #453922; background:linear-gradient(90deg,#31281e,#2a241b)}
+.side-card.entrega > svg{width:16px; height:16px; color:#d4a539}
+.side-card.entrega .sc-t em{font-size:9px; font-weight:600; letter-spacing:.1em; color:var(--muted)}
+.side-card.entrega .sc-t b{font-size:13px; font-weight:500; letter-spacing:-.01em; color:var(--ink)}
+.side-card.entrega i{font-size:15px; color:#6a6a70}
+.side-card.salud{min-height:32px; padding:0 12px; border-radius:8px; gap:9px; border:1px solid #883030; background:linear-gradient(90deg,#341d1e,#2d1919); color:#f87171}
+.side-card.salud > svg{width:14px; height:14px}
+.side-card.salud b, .side-card.salud .sc-t b{font-size:11px; font-weight:600; color:#f87171}
+.side-card.salud.ok{border-color:rgba(52,211,153,.35); background:linear-gradient(90deg,rgba(52,211,153,.10),rgba(52,211,153,.06)); color:#34d399}
+.side-card.salud.ok b{color:#34d399}
+
+#nav{padding:4px 12px 10px; margin:4px 0 0}
+#nav::-webkit-scrollbar{width:6px}
+#nav::-webkit-scrollbar-thumb{background:#202022; border-radius:999px}
+aside .group, #nav a.suelto{height:42px; margin:0 0 1px; padding:0 12px; border-radius:8px; border:1px solid transparent;
+  font-size:13px; font-weight:500; letter-spacing:-.02em; color:var(--muted)}
+aside .group .navicon, #nav a.suelto .navicon{width:18px; height:18px; margin-right:12px; color:var(--muted); stroke-width:2}
+aside .group:hover, #nav a.suelto:hover{background:rgba(255,255,255,.025); color:#d6d6da}
+aside .group.activo, aside .group.activo.cerrado{color:var(--ink)}
+aside .group.activo .navicon{color:#d4a539}
+aside .group .gchev{border-color:#95959c; width:7px; height:7px; border-right-width:1.5px; border-bottom-width:1.5px}
+/* sub-ítems: caja desde x48 (24 a la derecha del grupo) y la guía 12 px antes */
+#nav a:not(.grupo-cerrado):not(.suelto){position:relative; height:34px; margin:0 0 1px 24px; padding:0 12px; border:1px solid transparent; border-left:1px solid transparent;
+  border-radius:8px; font-size:12px; font-weight:400; color:var(--muted)}
+#nav a:not(.grupo-cerrado):not(.suelto)::after{content:''; position:absolute; left:-13px; top:-1px; bottom:0; width:1px; background:rgba(255,255,255,.06)}
+#nav a .navicon{width:16px; height:16px; margin-right:10px; color:var(--muted); stroke-width:2}
+#nav a:not(.suelto):hover{background:rgba(255,255,255,.025); color:#d6d6da}
+/* activo: caja + riel dorado 3×18 con brillo + ícono dorado */
+aside nav a.active, #nav a.active:not(.suelto), #nav a.suelto.active{background:rgba(255,255,255,.055); border-color:rgba(255,255,255,.08); color:var(--ink); font-weight:600}
+aside nav a.active::before{left:-1px; top:50%; bottom:auto; height:18px; margin-top:-9px; width:3px; border-radius:3px;
+  background:linear-gradient(180deg,#daac41,#d0a035); box-shadow:0 0 10px rgba(212,165,58,.35)}
+#nav a.active:not(.suelto){font-weight:500}
+aside nav a.active .navicon{color:#d4a539}
+
+/* pie: bloque de progreso (Onboarding en la referencia, objetivo del mes acá) y usuario */
+aside .side-plan{border-top:0; padding:10px 12px 12px; margin:auto 0 0}
+.sp-fila > svg{width:18px; height:18px; color:var(--muted)}
+.sp-nombre{font-size:14px; font-weight:500; letter-spacing:-.02em; color:var(--muted)}
+aside .side-plan .sp-track{height:3px; background:rgba(255,255,255,.1); margin:8px 0 6px}
+.sp-pie{font-size:11px; font-weight:500}
+aside .sidebar-foot{border-top:1px solid rgba(255,255,255,.06); padding:12px 12px 0; margin-top:4px}
+aside .sidebar-foot .avatar{width:28px; height:28px; background:rgba(212,165,58,.12); border:0; color:#d4a539; font-size:13px; font-weight:600}
+aside .sidebar-foot .sf-name{font-size:13.5px; font-weight:500; color:var(--ink)}
+aside .sidebar-foot .sf-sub{font-size:12px; color:var(--muted)}
+
+/* ── botones (receta de la referencia) ── */
+.btn,.ui-btn,.toolbar .btn{min-height:36px; border-radius:8px; background:rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.1); font-size:13.5px; font-weight:600; color:var(--ink)}
+.btn:hover,.ui-btn:hover,.toolbar .btn:hover{background:rgba(255,255,255,.08); border-color:rgba(255,255,255,.14)}
+.btn.primary,.ui-btn.pri,.toolbar .btn.primary{background:linear-gradient(180deg,#daac41,#d0a035); color:#20190a; box-shadow:inset 0 1px 0 rgba(255,255,255,.2),0 4px 14px rgba(212,165,58,.25)}
+.ui-icobtn{width:36px; height:36px; border-radius:8px; background:rgba(255,255,255,.05); border-color:rgba(255,255,255,.1)}
+
+/* ── Inicio ── */
+.salud-strip{gap:10px; margin-bottom:0}
+.salud-t{min-height:0; padding:16px 18px 16px; border-radius:16px; background-color:#161618;
+  background-image:linear-gradient(135deg,color-mix(in srgb,var(--c) 6%,transparent),transparent 45%);
+  border:1px solid color-mix(in srgb,var(--c) 30%,transparent);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.06)}
+.salud-t.c-verde{--c:#2ed38a} .salud-t.c-ambar{--c:#d9ae3e} .salud-t.c-rojo{--c:#f0717a}
+.salud-t.c-gris{--c:#a1a1a6; background-image:linear-gradient(135deg,rgba(255,255,255,.03),transparent 45%); border-color:rgba(255,255,255,.08); box-shadow:inset 0 1px 0 rgba(255,255,255,.06)}
+.salud-h span{font-size:11px; font-weight:700; letter-spacing:.1em; color:var(--tenue)}
+.salud-h i{width:6px; height:6px; box-shadow:0 0 6px color-mix(in srgb,var(--c) 60%,transparent)}
+.salud-t > b{margin-top:10px; font-size:26px; font-weight:700; letter-spacing:-.04em; line-height:1.2}
+.salud-t.c-gris > b{color:#a1a1a6}
+.salud-t > small{margin-top:4px; font-size:12px; letter-spacing:-.02em; line-height:17px; color:var(--tenue)}
+.salud-mini{order:0; height:24px; margin:8px 0 2px; padding:0; gap:1.5px}
+.salud-mini i{max-width:4.5px; min-height:1px; border-radius:1px; background:color-mix(in srgb,var(--c) 70%,transparent)}
+
+/* ── login (la clave de entrada) con la misma estética ── */
+#gate{background:
+  radial-gradient(520px 300px at 82% -40px, rgba(255,255,255,.065), transparent 70%),
+  radial-gradient(420px 360px at 0 0, rgba(200,110,40,.05), transparent 70%),
+  linear-gradient(180deg,#16161a 0,#121216 30%,#0f0f12 65%,#0d0d10 100%)}
+.gate-card{width:min(360px,calc(100vw - 32px)); display:flex; flex-direction:column; align-items:center; gap:10px; padding:36px 32px 30px;
+  border:1px solid rgba(255,255,255,.07); border-radius:20px; background:rgba(22,22,26,.55);
+  box-shadow:0 10px 40px rgba(0,0,0,.45), inset 0 1px 0 rgba(255,255,255,.04)}
+.gate-logo{width:44px; height:44px; margin-bottom:4px}
+#gate h1{font-size:20px; font-weight:600; letter-spacing:-.02em; color:#e9e9ec}
+.gate-sub{font-size:10.5px; font-weight:500; letter-spacing:.14em; text-transform:uppercase; color:var(--muted); margin:-6px 0 14px}
+#gate input{width:100%; height:44px; background:#161619; border:1px solid #2a2a2f; border-radius:10px; font-size:15px; color:#e9e9ec}
+#gate input:focus{border-color:rgba(212,165,58,.5); box-shadow:0 0 0 3px rgba(212,165,58,.12)}
+#gate button{width:100%; height:42px; margin-top:4px; border-radius:10px; background:linear-gradient(180deg,#daac41,#d0a035); color:#20190a; font-weight:600;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.2),0 4px 14px rgba(212,165,58,.25)}
+#gate button:hover{filter:brightness(1.05); background:linear-gradient(180deg,#daac41,#d0a035)}
+#gate .err{min-height:14px; font-size:12.5px}

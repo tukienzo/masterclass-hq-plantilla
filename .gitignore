@@ -1,0 +1,10 @@
+node_modules/
+.datos*/
+.env
+.env.*
+!.env.ejemplo
+.netlify/
+_original/
+_analisis/
+*.log
+.DS_Store

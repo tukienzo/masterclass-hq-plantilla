@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 16 16%22%3E%3Ccircle cx=%228%22 cy=%228%22 r=%227%22 fill=%22%233b82f6%22/%3E%3C/svg%3E">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Te falta un paso</title>
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#0a0a0a">
+<link rel="preload" href="/api/publico" as="fetch" crossorigin>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap">
+<link rel="stylesheet" href="/css/landing.css">
+<script type="module" src="/js/gracias.js"></script>
+</head>
+<body>
+<div class="aviso" role="note"><i class="vivo" aria-hidden="true"></i>No cierres esta página</div>
+<main class="gracias">
+  <div class="progreso">
+    <div class="barra" role="progressbar" aria-label="Avance del registro" aria-valuemin="0" aria-valuemax="100" aria-valuenow="90"><i id="progreso-barra"></i></div>
+    <small id="progreso-texto">Registro completo al 90%</small>
+  </div>
+  <h1 id="titulo">Te falta un paso</h1>
+  <p class="fecha" id="cuando"></p>
+  <div class="reloj" id="reloj" aria-hidden="true"></div>
+
+  <div class="pasos">
+    <section class="paso" id="paso-grupo" hidden>
+      <h2><span class="n"></span>El grupo de WhatsApp de la clase</h2>
+      <p>Por ahí llega el link del directo, los recordatorios y los recursos. Si no estás en el grupo, no te llega el acceso.</p>
+      <a class="btn wpp" id="btn-grupo" target="_blank" rel="noopener">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm5.3 14.1c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .1-3.3-.8-2.8-1.1-4.5-4-4.7-4.2-.1-.2-1.1-1.5-1.1-2.9s.7-2.1 1-2.4c.3-.3.6-.3.8-.3h.6c.2 0 .4 0 .6.5l.9 2.1c.1.2.1.4 0 .6l-.4.6-.4.4c-.1.1-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.3 2.4 1.5.3.1.5.1.6-.1l.9-1c.2-.3.4-.2.7-.1l2 .9c.3.2.5.2.6.3.1.2.1.8-.1 1.4Z"/></svg>
+        Entrar al grupo de WhatsApp
+      </a>
+      <p class="form-pie" id="grupo-otra" hidden>¿No se abrió WhatsApp? El botón se puede tocar de nuevo.</p>
+    </section>
+    <section class="paso" id="paso-mail" hidden>
+      <h2><span class="n"></span>El mail de confirmación</h2>
+      <p id="mail-texto"></p>
+    </section>
+    <section class="paso" id="paso-video" hidden>
+      <h2><span class="n"></span>Un video antes de la clase</h2>
+      <div class="video" id="video"></div>
+    </section>
+    <section class="paso" id="paso-agenda" hidden>
+      <h2><span class="n"></span>La clase en tu calendario</h2>
+      <div class="agenda">
+        <a class="btn sec" id="cal-google" target="_blank" rel="noopener">Google Calendar</a>
+        <a class="btn sec" id="cal-ics" download="clase.ics">Apple / Outlook</a>
+      </div>
+    </section>
+  </div>
+</main>
+<footer>
+  <div class="caja">
+    <p id="disclaimer"></p>
+    <p>Este sitio no forma parte de Meta Platforms, Inc. ni está respaldado por Meta.</p>
+    <p>© <span data-marca></span></p>
+  </div>
+</footer>
+</body>
+</html>

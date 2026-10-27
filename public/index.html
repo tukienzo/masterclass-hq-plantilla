@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 16 16%22%3E%3Ccircle cx=%228%22 cy=%228%22 r=%227%22 fill=%22%233b82f6%22/%3E%3C/svg%3E">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Clase gratuita en vivo</title>
+<meta name="description" content="Clase gratuita en vivo.">
+<meta name="theme-color" content="#0a0a0a">
+<meta property="og:type" content="website">
+<link rel="preload" href="/api/publico" as="fetch" crossorigin>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap">
+<link rel="stylesheet" href="/css/landing.css">
+<script type="module" src="/js/landing.js"></script>
+</head>
+<body>
+<header class="nav">
+  <div class="caja">
+    <span class="marca" data-marca></span>
+    <span class="cuando" data-cuando></span>
+    <a class="btn" href="#ticket"><span data-cta>Reservar mi lugar gratis</span></a>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="caja">
+      <div>
+        <span class="pill"><i class="vivo" aria-hidden="true"></i><span id="eyebrow">Clase gratuita en vivo</span></span>
+        <p class="fecha" id="fecha"></p>
+        <h1 id="titulo"></h1>
+        <p class="bajada" id="bajada"></p>
+        <p class="micro">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm5.3 14.1c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .1-3.3-.8-2.8-1.1-4.5-4-4.7-4.2-.1-.2-1.1-1.5-1.1-2.9s.7-2.1 1-2.4c.3-.3.6-.3.8-.3h.6c.2 0 .4 0 .6.5l.9 2.1c.1.2.1.4 0 .6l-.4.6-.4.4c-.1.1-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.3 2.4 1.5.3.1.5.1.6-.1l.9-1c.2-.3.4-.2.7-.1l2 .9c.3.2.5.2.6.3.1.2.1.8-.1 1.4Z"/></svg>
+          <span id="micro-texto"></span>
+        </p>
+        <p class="cuenta-texto" id="cuenta-texto" aria-live="off"></p>
+      </div>
+
+      <aside class="ticket" id="ticket" aria-labelledby="ticket-titulo">
+        <h2 id="ticket-titulo">Tu lugar en la clase en vivo</h2>
+        <p class="sub" data-cuando></p>
+        <div class="reloj" data-reloj aria-hidden="true"></div>
+        <div id="ticket-cuerpo">
+          <form id="form" novalidate>
+            <label class="campo"><span>Nombre y apellido</span>
+              <input name="nombre" autocomplete="name" required maxlength="80" aria-describedby="err-nombre">
+            </label>
+            <p class="err" id="err-nombre" role="alert"></p>
+            <label class="campo"><span>Email</span>
+              <input name="email" type="email" autocomplete="email" inputmode="email" required maxlength="254" aria-describedby="err-email">
+            </label>
+            <p class="err" id="err-email" role="alert"></p>
+            <div class="campo"><span id="lbl-wpp">WhatsApp</span>
+              <div class="tel">
+                <select name="pais" id="pais" autocomplete="tel-country-code"></select>
+                <input name="whatsapp" type="tel" inputmode="tel" autocomplete="tel-national" placeholder="Número sin el código" required maxlength="24" aria-labelledby="lbl-wpp" aria-describedby="err-whatsapp">
+              </div>
+            </div>
+            <p class="err" id="err-whatsapp" role="alert"></p>
+            <label class="hp" aria-hidden="true">No completar <input name="web" tabindex="-1" autocomplete="off"></label>
+            <button class="btn" id="enviar" type="submit"><span data-cta>Reservar mi lugar gratis</span></button>
+            <p class="err" id="err-form" role="alert"></p>
+            <p class="form-pie">100% gratis · sin tarjeta · en vivo</p>
+          </form>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <section class="bloque" id="sec-piezas" hidden>
+    <div class="caja">
+      <p class="eyebrow">En la clase</p>
+      <h2 id="piezas-titulo"></h2>
+      <div class="piezas" id="piezas"></div>
+      <div class="regalo" id="regalo" hidden>
+        <p class="eyebrow">Solo para los que estén en vivo</p>
+        <h2 id="regalo-titulo"></h2>
+        <p id="regalo-texto"></p>
+      </div>
+    </div>
+  </section>
+
+  <section class="bloque" id="sec-quien" hidden>
+    <div class="caja">
+      <p class="eyebrow">Para quién es</p>
+      <h2>¿Esta clase te sirve?</h2>
+      <div class="listas">
+        <div class="lista" id="lista-si"><h3>Te va a servir si…</h3><ul id="si"></ul></div>
+        <div class="lista no" id="lista-no"><h3>No te va a servir si…</h3><ul id="no"></ul></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="bloque" id="sec-presentador" hidden>
+    <div class="caja">
+      <p class="eyebrow">Quién da la clase</p>
+      <div class="presentador">
+        <img id="pr-foto" alt="" loading="lazy" decoding="async" hidden>
+        <div>
+          <h2 id="pr-nombre"></h2>
+          <p id="pr-bio"></p>
+          <div class="numeros" id="pr-numeros"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="bloque">
+    <div class="caja">
+      <p class="eyebrow">Preguntas frecuentes</p>
+      <h2>Lo que nos preguntan antes de anotarse</h2>
+      <div class="faq" id="faq"></div>
+    </div>
+  </section>
+
+  <section class="bloque cierre">
+    <div class="caja">
+      <p class="eyebrow" data-cuando></p>
+      <h2 id="cierre-titulo"></h2>
+      <div class="reloj" data-reloj aria-hidden="true"></div>
+      <a class="btn" href="#ticket"><span data-cta>Reservar mi lugar gratis</span></a>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="caja">
+    <p id="disclaimer"></p>
+    <p>Este sitio no forma parte de Meta Platforms, Inc. ni está respaldado por Meta.</p>
+    <p>© <span data-marca></span></p>
+  </div>
+</footer>
+
+<div class="fija" id="fija">
+  <small data-cuando></small>
+  <a class="btn" href="#ticket"><span data-cta>Reservar mi lugar gratis</span></a>
+</div>
+<noscript><p style="padding:20px;text-align:center">Hace falta JavaScript para registrarse.</p></noscript>
+</body>
+</html>

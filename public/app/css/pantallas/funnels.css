@@ -1,0 +1,129 @@
+/* Funnel (js/pantallas/funnels.js) — el funnels.css del hub original (calcado de la referencia), con lo que usan el Embudo y el
+   Comparador, más las puntas de plata del embudo y la tabla por fuente. Todo con prefijo .fn- (los modales también). */
+
+body[data-vista="embudos"] .pagehead h1{min-height:40px; display:flex; align-items:center}
+
+/* ── pestañas de la página: texto dorado + subrayado dorado de 2 px ── */
+.fn-tabs{display:flex; gap:2px; border-bottom:1px solid rgba(255,255,255,.06); margin:0 0 32px; overflow-x:auto; scrollbar-width:none}
+.fn-tabs::-webkit-scrollbar{display:none}
+.fn-tab{position:relative; height:42px; padding:0 16px; border:0; background:none; font:inherit; font-size:15px; font-weight:500;
+  letter-spacing:-.01em; color:var(--muted); cursor:pointer; white-space:nowrap}
+.fn-tab:hover{color:var(--ink)}
+.fn-tab.on{color:var(--gold-txt); font-weight:600}
+.fn-tab.on::after{content:''; position:absolute; left:0; right:0; bottom:-1px; height:2px; border-radius:2px 2px 0 0; background:var(--gold)}
+.fn-cargando{margin:0; font-size:13px; color:var(--muted)}
+
+/* ── botones ── */
+.fn-btn{display:inline-flex; align-items:center; justify-content:center; gap:8px; height:40px; padding:0 18px; border-radius:10px;
+  border:1px solid transparent; font:inherit; font-size:14px; font-weight:600; letter-spacing:-.01em; cursor:pointer; white-space:nowrap}
+.fn-btn.pri{background:linear-gradient(180deg,#dcae45 0%,#d4a53a 100%); color:#1c1405; box-shadow:0 4px 14px -2px rgba(212,165,58,.35)}
+.fn-btn.pri:hover{filter:brightness(1.06)}
+.fn-btn.chico{height:36px; padding:0 14px; border-radius:8px; font-size:13.5px}
+
+/* ── avisos y notas ── */
+.fn-aviso{display:flex; align-items:center; gap:10px; padding:11px 14px; margin-bottom:16px; border-radius:10px; font-size:13px; line-height:1.45}
+.fn-aviso.rojo{background:rgba(248,113,113,.08); border:1px solid rgba(248,113,113,.28); color:#f6a3a3}
+.fn-nota{display:flex; align-items:center; flex-wrap:wrap; gap:8px; margin:14px 0 0; font-size:12.5px; line-height:1.5; color:var(--muted)}
+.fn-nota > .ui-ico{flex:none; color:#6c6c72}
+.fn-nota span{flex:1 1 240px; min-width:0}
+
+/* ── tarjeta base ── */
+.fn-card{background:#151517; border:1px solid rgba(255,255,255,.08); border-radius:14px; padding:20px; min-width:0}
+.fn-card + .fn-card{margin-top:16px}
+.fn-card-tit{display:flex; align-items:center; flex-wrap:wrap; gap:4px 12px; margin-bottom:16px}
+.fn-card-tit b{font-size:15px; font-weight:600; color:var(--ink); letter-spacing:-.01em}
+.fn-card-tit span{font-size:12.5px; color:var(--muted)}
+
+/* ── vacíos punteados ── */
+.fn-vacio{border:1px dashed rgba(255,255,255,.2); border-radius:12px; padding:26px 24px; text-align:center; font-size:14px; line-height:1.6; color:var(--muted)}
+.fn-vacio b{display:block; margin-bottom:4px; font-size:14.5px; font-weight:600; color:var(--ink)}
+.fn-vacio-acc{display:flex; justify-content:center; flex-wrap:wrap; gap:8px; margin-top:16px}
+.fn-vacio-linea{display:flex; align-items:center; justify-content:center; min-height:68px; padding:10px 18px; border:1px dashed rgba(255,255,255,.3);
+  border-radius:12px; font-size:14px; line-height:1.5; color:var(--muted); text-align:center}
+
+/* ── filtro de fuente (el chip de la tarjeta del embudo) ── */
+.fn-fchip{height:28px; padding:0 12px; border:0; border-radius:8px; background:rgba(255,255,255,.08); color:var(--muted); font:inherit; font-size:13px; font-weight:600;
+  cursor:pointer; white-space:nowrap; font-variant-numeric:tabular-nums}
+.fn-fchip:hover{color:var(--ink)}
+.fn-fchip.on{background:rgba(212,165,58,.12); color:var(--gold-txt)}
+.fn-quitar{margin-left:auto}
+
+/* ── secciones y tablas ── */
+.fn-sec{margin-top:24px}
+.fn-sec-t{font-size:15px; font-weight:600; letter-spacing:-.01em; color:var(--ink)}
+.fn-sec-sub{margin-left:6px; font-size:12px; font-weight:400; color:var(--muted)}
+.fn-tabla-w{border:1px solid #1d1c23; border-radius:12px; overflow:hidden; overflow-x:auto}
+.fn-tabla{width:100%; border-collapse:collapse; table-layout:fixed; font-size:14px}
+.fn-tabla th{position:static; height:37.5px; padding:0 16px; background:rgba(255,255,255,.09); border:0; text-align:left;
+  font-size:12px; font-weight:500; letter-spacing:0; text-transform:none; color:var(--muted); white-space:nowrap}
+.fn-tabla td{height:40px; padding:0 16px; border:0; border-top:1px solid rgba(255,255,255,.05); background:none; color:var(--ink);
+  white-space:nowrap; overflow:hidden; text-overflow:ellipsis; vertical-align:middle}
+.fn-tabla tbody tr:first-child td{border-top:0}
+.fn-tabla tbody tr:hover td{background:rgba(255,255,255,.02)}
+.fn-tabla tr.fn-clic{cursor:pointer}
+.fn-mono{font-family:'JetBrains Mono',ui-monospace,monospace; font-size:12.5px; color:var(--muted) !important}
+.fn-num{font-variant-numeric:tabular-nums}
+.fn-lnom{font-weight:600; color:var(--ink)}
+.fn-tchip{display:inline-flex; align-items:center; height:18px; padding:0 8px; border-radius:6px; font-size:11px; font-weight:500; white-space:nowrap;
+  color:var(--c,#a1a1a6); background:color-mix(in srgb,var(--c,#a1a1a6) 15%,transparent)}
+.fn-tchip.c-azul{--c:#6eb4f7}
+/* tabla por fuente: el número con su % abajo; la fuente elegida, marcada; el total, aparte */
+.fn-tfu{min-width:860px}
+.fn-tfu td{height:52px}
+.fn-sub{display:block; margin-top:2px; font-size:11.5px; color:var(--muted)}
+.fn-tfu tr.on td{background:rgba(212,165,58,.07)}
+.fn-tfu tr.on td:first-child{box-shadow:inset 2px 0 0 var(--gold)}
+.fn-tfu tr.fn-total td{border-top:1px solid rgba(255,255,255,.12); background:rgba(255,255,255,.025)}
+.fn-tfu td[data-tip]{cursor:help}
+
+/* ── Embudo ── */
+.fn-kpis{margin-bottom:16px}
+.fn-kpis .fn-kpi-t{transition:opacity .15s, border-color .15s}
+.fn-kpis .fn-kpi-t.clic{cursor:pointer}
+.fn-kpis .fn-kpi-t.clic:hover{border-color:rgba(212,165,58,.42)}
+.fn-kpis:has(.fn-kpi-t:hover) .fn-kpi-t:not(:hover){opacity:.6}
+.fn-emb{display:flex; flex-direction:column}
+.fn-emb-f{display:grid; grid-template-columns:210px minmax(0,1fr) 64px; align-items:center; gap:16px; min-height:36px}
+.fn-emb-n{display:flex; align-items:center; gap:8px; min-width:0; font-size:14px; color:var(--ink)}
+.fn-emb-mano{font-style:normal; font-size:10.5px; padding:1px 7px; border-radius:999px; background:rgba(255,255,255,.07); color:var(--muted); white-space:nowrap}
+.fn-emb-r{height:28px; border-radius:8px; background:rgba(255,255,255,.05); overflow:hidden}
+.fn-emb-r i{display:flex; align-items:center; height:100%; min-width:30px; padding-left:10px; border-radius:8px; font-style:normal;
+  font-size:12.5px; font-weight:700; color:#16130b; font-variant-numeric:tabular-nums}
+.fn-emb-p{text-align:right; font-size:13px; color:var(--muted); font-variant-numeric:tabular-nums}
+.fn-emb-cero{display:flex; align-items:center; height:100%; padding-left:10px; font-size:12.5px; font-weight:700; color:#8a8a90; font-variant-numeric:tabular-nums}
+.fn-emb-f.cero .fn-emb-r{box-shadow:inset 0 0 0 1px rgba(255,255,255,.06)}
+.fn-porvenir{font-style:normal; margin-left:4px; color:#c9a75a}
+.fn-emb-caida{display:grid; grid-template-columns:210px minmax(0,1fr) 64px; gap:16px; padding:4px 0 6px; font-size:12px; color:#f0717a}
+/* conversión igual o mejor que la proyectada: verde; sin dato: gris */
+.fn-emb-caida.ok{color:#6cd59b}
+.fn-emb-caida.gris{color:#7d7d84}
+.fn-emb-f.clic{cursor:pointer; margin:0 -8px; padding:0 8px; border-radius:9px; transition:opacity .15s, background .15s}
+.fn-emb-f.clic:hover{background:rgba(255,255,255,.03)}
+.fn-emb-f.clic:hover .fn-emb-r i{filter:brightness(1.12)}
+.fn-emb-f.clic:hover .fn-emb-n{color:var(--gold-txt)}
+.fn-emb:has(.fn-emb-f:hover) .fn-emb-f:not(:hover){opacity:.5}
+.fn-emb-caida.clic{cursor:pointer; transition:filter .15s}
+.fn-emb-caida.clic:hover{filter:brightness(1.2)}
+.fn-emb-caida.clic:hover span:nth-child(2){text-decoration:underline; text-underline-offset:3px}
+.fn-cuello{display:inline-block; margin-left:6px; padding:1px 8px; border-radius:999px; background:rgba(248,113,113,.14); color:#f87171;
+  font-size:10.5px; font-weight:700; letter-spacing:.06em; text-transform:uppercase}
+.fn-alerta-card{display:flex; flex-direction:column; gap:4px; margin-top:16px; padding:16px 20px; border-radius:14px;
+  background:linear-gradient(90deg,rgba(248,113,113,.08),rgba(248,113,113,.02)); border:1px solid rgba(248,113,113,.25)}
+.fn-alerta-card b{font-size:14.5px; font-weight:600; color:var(--ink)}
+.fn-alerta-card span{font-size:12.5px; color:var(--muted)}
+/* las dos puntas de plata: lo que se invirtió arriba y el cash abajo */
+.fn-emb-plata{display:flex; align-items:center; flex-wrap:wrap; gap:6px 10px; margin:0 0 12px; padding:10px 14px; border-radius:10px;
+  background:rgba(255,255,255,.03); border:1px solid rgba(255,255,255,.06); font-size:13px; color:var(--muted); cursor:help}
+.fn-emb-plata.fin{margin:12px 0 0}
+.fn-emb-plata .ui-ico{flex:none; color:var(--gold-txt)}
+.fn-emb-plata > span{color:var(--ink); font-weight:500}
+.fn-emb-plata > b{font-size:15px; font-weight:700; color:var(--ink); font-variant-numeric:tabular-nums}
+.fn-emb-plata > small{font-size:12.5px; color:var(--muted)}
+@media(max-width:800px){.fn-emb-f{grid-template-columns:112px minmax(0,1fr) 46px; gap:10px} .fn-emb-caida{display:block; padding:4px 0 8px}}
+
+/* ── Comparador ── */
+.fn-cmp{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:16px}
+.fn-cmp .fn-card + .fn-card{margin-top:0}
+.fn-cmp .ui-lb-f{transition:opacity .15s, background .12s}
+.fn-cmp .ui-lb:hover .ui-lb-f:not(:hover){opacity:.5}
+@media(max-width:1100px){.fn-cmp{grid-template-columns:1fr}}

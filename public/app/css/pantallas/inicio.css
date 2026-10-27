@@ -1,0 +1,76 @@
+/* Inicio (js/pantallas/inicio.js) — el del hub original: la franja de salud (calco.css + founder.css), el "Hoy" de hub.js y el
+   vacío del Tablero (inicio-tablero.css). Prefijos: .ini- (Inicio) y .tb- (lo compartido con Funnel y KPIs). */
+
+/* ── el webinar en la cabecera (lo usan Inicio, Funnel y KPIs) ── */
+.tb-web, .tb-sel{display:inline-flex; align-items:center; gap:8px; height:36px; padding:0 12px; border-radius:10px; background:var(--ctrl); border:1px solid var(--ctrl-line);
+  color:#d4d4d8; font-size:13.5px; font-weight:500; white-space:nowrap; max-width:100%}
+.tb-web .ui-ico, .tb-sel .ui-ico{flex:none; color:#8e8e94}
+.tb-web{overflow:hidden; text-overflow:ellipsis}
+.tb-sel select{min-width:0; max-width:300px; height:100%; padding:0 2px; border:0; background:none; color:inherit; font:inherit; outline:none; cursor:pointer; color-scheme:dark}
+.tb-sel:focus-within{border-color:rgba(212,165,58,.45)}
+.tb-nota{margin:12px 0 0; font-size:12.5px; line-height:1.5; color:var(--muted)}
+
+/* ── franja de salud: mini-barras con tooltip (founder.css del hub original) ── */
+.salud-mini i{position:relative; transition:opacity .12s, filter .12s}
+.salud-mini i::before{content:""; position:absolute; left:-1px; right:-1px; bottom:0; height:30px}
+.salud-mini:has(i:hover) i:not(:hover){opacity:.35}
+.salud-mini i:hover{filter:brightness(1.35)}
+.salud-mini i.fut{opacity:.35}
+.salud-mini:has(i:hover) i.fut:not(:hover){opacity:.15}
+.salud-t.clic{cursor:pointer; transition:border-color .15s, transform .15s}
+.salud-t.clic:hover{border-color:color-mix(in srgb,var(--c) 55%,transparent)}
+.salud-t.clic:focus-visible{outline:2px solid color-mix(in srgb,var(--c) 60%,transparent); outline-offset:2px}
+.salud-h[data-tip]{cursor:help}
+.salud-t > b[data-tip]{cursor:inherit}
+.ini .ui-sec .der.ini-sub, .ini .ui-sec .der.ini-hoy-res{font-size:12px; font-weight:500; color:var(--muted); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; min-width:0}
+.ini .ui-sec{min-width:0}
+
+/* ── Hoy: una tarjeta por alerta, con el filo del color de su severidad ── */
+.ini-al{box-shadow:inset 3px 0 0 var(--c); margin-bottom:10px}
+.ini-al > h3{justify-content:space-between; margin-bottom:6px}
+.ini-al-t{display:flex; align-items:center; gap:9px; min-width:0}
+.ini-al-t .salud-dot{background:var(--c); margin:0}
+.ini-al-t .chip{font-variant-numeric:tabular-nums}
+.ini-al > p{font-size:12.5px; line-height:1.5; color:var(--muted); margin:0 0 9px}
+.ini-al > b{display:block}
+.ini-al > b + p{margin-top:5px; margin-bottom:0}
+.ini-al-items{display:flex; flex-wrap:wrap; gap:6px}
+.ini-al-items .chip::before{display:none}
+.ini-mas{opacity:.6}
+
+/* ── proyección contra lo real ── */
+.ini-proy .ui-tabla td{padding:10px 12px}
+.ini-et{font-weight:500; color:#e9e9ec}
+.ini-et[data-tip]{cursor:help}
+.ini-gris{color:#6c6c71}
+.ini-gris[data-tip]{cursor:help}
+.ini-av{display:inline-flex; align-items:center; gap:10px; cursor:help}
+.ini-av b{font-weight:600; font-size:12.5px; color:#c9c9cd; font-variant-numeric:tabular-nums; min-width:44px}
+.ini-riel{position:relative; flex:none; width:110px; height:6px; border-radius:999px; background:#2a2a2c; overflow:hidden}
+.ini-riel i{display:block; height:100%; border-radius:999px; background:#8ab8ec}
+.ini-riel.ok i{background:#6cd59b}
+.ini-riel.atras i{background:#e8bd61}
+.ini-riel.mal i{background:#e06c75}
+.ini-cargar{font-size:13px}
+.ini-lapiz{display:inline-grid; place-items:center; width:22px; height:22px; margin-left:4px; padding:0; border:0; border-radius:6px; background:none; color:#6c6c71; cursor:pointer; vertical-align:middle}
+.ini-lapiz:hover{color:#e4e4e7; background:rgba(255,255,255,.06)}
+/* en el celular el avance queda solo con su %: la tabla entra sin scroll */
+@media(max-width:720px){
+  .ini-proy .ui-card-b{padding:8px 12px 12px}
+  .ini-proy .ui-tabla{font-size:12.5px}
+  .ini-proy .ui-tabla th{width:auto !important; font-size:10px; letter-spacing:.04em}
+  .ini-proy .ui-tabla td, .ini-proy .ui-tabla th{padding-left:4px; padding-right:4px}
+  .ini-riel{display:none}
+  .ini-av b{min-width:0; font-size:12px}
+}
+
+/* ── «Tu tablero está vacío» (inicio-tablero.css del hub original) ── */
+#inicioFijados:empty{display:none}
+.it-vacio{display:flex; align-items:center; justify-content:space-between; gap:16px; width:100%; margin-top:10px; padding:20px; text-align:left;
+  font:inherit; color:inherit; cursor:pointer; border-radius:16px; border:1px solid rgba(255,255,255,.08);
+  background:linear-gradient(90deg,#222224,#171719); box-shadow:inset 0 1px 0 rgba(255,255,255,.05); transition:border-color .15s}
+.it-vacio:hover{border-color:rgba(255,255,255,.15)}
+.it-vacio[hidden]{display:none}
+.it-vacio b{display:block; font-size:14px; font-weight:500; color:#e9e9ec}
+.it-vacio small{display:block; margin-top:2px; font-size:12px; color:#97979e}
+.it-vacio > svg{flex:none; width:20px; height:20px; color:#97979e}

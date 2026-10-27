@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Masterclass HQ</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 16 16%22%3E%3Ccircle cx=%228%22 cy=%228%22 r=%227%22 fill=%22%233b82f6%22/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<!-- el sistema de diseño de la app -->
+<script>document.documentElement.dataset.theme='dark'</script>
+<link rel="stylesheet" href="/app/css/atlas.css">
+<link rel="stylesheet" href="/app/css/calco.css">
+<link rel="stylesheet" href="/app/css/componentes.css">
+<link rel="stylesheet" href="/app/css/pantallas/inicio.css">
+<link rel="stylesheet" href="/app/css/pantallas/ads.css">
+<link rel="stylesheet" href="/app/css/pantallas/utms.css">
+<link rel="stylesheet" href="/app/css/pantallas/icp.css">
+<link rel="stylesheet" href="/app/css/pantallas/funnels.css">
+<link rel="stylesheet" href="/app/css/pantallas/agendas.css">
+<link rel="stylesheet" href="/app/css/pantallas/crm.css">
+<link rel="stylesheet" href="/app/css/pantallas/finanzas.css">
+<link rel="stylesheet" href="/app/css/pantallas/kpis.css">
+<link rel="stylesheet" href="/app/css/pantallas/mhq.css">
+</head>
+<body>
+
+<div id="gate">
+  <div class="gate-card" id="gateCard">
+    <h1 id="gateTitulo">Masterclass HQ</h1>
+    <p class="gate-sub">Entrá con tu código</p>
+    <form class="gate-vieja" id="gateForm">
+      <label class="gate-campo"><input id="gatepass" placeholder="XXXX-XXXX" aria-label="Código de acceso" autocomplete="off" autocapitalize="characters" spellcheck="false"></label>
+      <button type="submit" id="gatebtn">Entrar</button>
+    </form>
+    <div class="err" id="gateerr" role="alert" aria-live="polite"></div>
+    <p class="gate-ayuda">¿No tenés código? Pedíselo a quien te dio acceso.</p>
+  </div>
+</div>
+
+<div class="wrap" id="app" style="visibility:hidden">
+<aside>
+  <div class="logo">
+    <span class="logo-mark"><svg viewBox="0 0 34 34" aria-hidden="true"><defs><linearGradient id="mhqOro" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#e3c06a"/><stop offset="1" stop-color="#b98f3a"/></linearGradient></defs><rect x="2" y="2" width="30" height="30" rx="9" fill="url(#mhqOro)"/><text id="logoLetra" x="17" y="22.6" text-anchor="middle" font-family="Inter,sans-serif" font-size="15" font-weight="800" fill="#0a0a0a">M</text></svg></span>
+    <div class="logo-txt"><b id="logoCliente">Masterclass</b><small>Masterclass HQ</small></div>
+  </div>
+  <nav id="nav">
+    <a class="suelto" href="#ceo"><svg class="navicon" viewBox="0 0 24 24"><rect x="3" y="3" width="7.5" height="7.5" rx="1.5"/><rect x="13.5" y="3" width="7.5" height="7.5" rx="1.5"/><rect x="3" y="13.5" width="7.5" height="7.5" rx="1.5"/><rect x="13.5" y="13.5" width="7.5" height="7.5" rx="1.5"/></svg>Inicio</a>
+
+    <div class="group" data-g="Captación"><svg class="navicon" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M7 4v16M17 4v16M2 12h20M2 8h5M2 16h5M17 8h5M17 16h5"/></svg>Captación<i class="gchev">›</i></div>
+    <a href="#anuncios">Ads</a>
+    <a href="#utms" data-fam="utms">UTM's</a>
+    <a href="#icp">ICP</a>
+    <a href="#registros">Registros</a>
+    <a href="#landing">Landing</a>
+
+    <div class="group" data-g="Conversión"><svg class="navicon" viewBox="0 0 24 24"><polyline points="3 17 9 11 13 15 21 7"/><polyline points="15 7 21 7 21 13"/></svg>Conversión<i class="gchev">›</i></div>
+    <a href="#embudos">Funnel</a>
+    <a href="#central" data-fam="agendas">Llamadas</a>
+    <a href="#crm">Ventas</a>
+
+    <div class="group" data-g="Empresa"><svg class="navicon" viewBox="0 0 24 24"><rect x="3" y="8" width="18" height="13" rx="2"/><path d="M8 8V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v3"/></svg>Empresa<i class="gchev">›</i></div>
+    <a href="#finanzas">Finanzas</a>
+    <a href="#kpis">KPIs</a>
+
+    <div class="group" data-g="Ajustes"><svg class="navicon" viewBox="0 0 24 24"><path d="m12.83 2.18 8.6 3.91a1 1 0 0 1 0 1.83l-8.58 3.9a2 2 0 0 1-1.66 0l-8.58-3.9a1 1 0 0 1 0-1.83l8.58-3.9a2 2 0 0 1 1.66-.01Z"/><path d="m22 17.65-9.17 4.16a2 2 0 0 1-1.66 0L2 17.65"/><path d="m22 12.65-9.17 4.16a2 2 0 0 1-1.66 0L2 12.65"/></svg>Ajustes<i class="gchev">›</i></div>
+    <a href="#webinar">Webinar</a>
+    <a href="#conexiones">Integraciones</a>
+    <a href="#equipo">Equipo</a>
+  </nav>
+  <div class="side-card" id="sideSalud" hidden onclick="irASalud()" role="button" tabindex="0"><span id="sideSaludTxt"></span></div>
+  <div class="sidebar-foot" id="sidebarFoot"></div>
+</aside>
+
+<main>
+<div class="appbar">
+  <button class="appbar-ico" onclick="plegarMenu()" title="Plegar el menú" aria-label="Plegar el menú">
+    <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3" y="4" width="18" height="16" rx="2"/><line x1="9" y1="4" x2="9" y2="20"/></svg>
+  </button>
+  <span class="appbar-sep"></span>
+  <div class="migas" id="migas"></div>
+</div>
+<div class="main-scroll" id="mainScroll">
+<div class="pagehead">
+  <h1 id="viewtitle"></h1>
+  <div class="der"><div class="page-extra" id="pageExtra"></div></div>
+  <nav class="subtabs" id="subtabs" hidden></nav>
+</div>
+<section class="view" id="ceo" data-title="Inicio"></section>
+<section class="view" id="anuncios" data-title="Ads"></section>
+<section class="view" id="utms" data-title="UTM's"></section>
+<section class="view" id="traza" data-title="Trazabilidad"></section>
+<section class="view" id="icp" data-title="ICP"></section>
+<section class="view" id="registros" data-title="Registros"></section>
+<section class="view" id="landing" data-title="Landing"></section>
+<section class="view" id="embudos" data-title="Funnel"></section>
+<section class="view" id="closers" data-title="Métricas de closers"></section>
+<section class="view" id="central" data-title="Agendas"></section>
+<section class="view" id="analisis" data-title="Análisis"></section>
+<section class="view" id="pipeline" data-title="Pipeline"></section>
+<section class="view" id="llamadas" data-title="Llamadas"></section>
+<section class="view" id="precall" data-title="Pre-call"></section>
+<section class="view" id="crm" data-title="Ventas"></section>
+<section class="view" id="finanzas" data-title="Finanzas"></section>
+<section class="view" id="kpis" data-title="KPIs"></section>
+<section class="view" id="webinar" data-title="Webinar"></section>
+<section class="view" id="conexiones" data-title="Integraciones"></section>
+<section class="view" id="equipo" data-title="Equipo"></section>
+</div>
+</main>
+</div>
+<div id="pstatus"></div>
+
+<script src="/app/js/ui.js"></script>
+<script src="/app/js/ui-atlas.js"></script>
+<script src="/app/js/db.js"></script>
+<script src="/app/js/base.js"></script>
+<script src="/app/js/shell.js"></script>
+<script src="/app/js/pantallas/inicio.js"></script>
+<script src="/app/js/pantallas/ads.js"></script>
+<script src="/app/js/pantallas/utms.js"></script>
+<script src="/app/js/pantallas/icp.js"></script>
+<script src="/app/js/pantallas/funnels.js"></script>
+<script src="/app/js/pantallas/agendas.js"></script>
+<script src="/app/js/pantallas/crm.js"></script>
+<script src="/app/js/pantallas/finanzas.js"></script>
+<script src="/app/js/pantallas/kpis.js"></script>
+<script src="/app/js/pantallas/mhq.js"></script>
+</body>
+</html>

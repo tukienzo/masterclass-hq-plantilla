@@ -1,0 +1,316 @@
+/* Finanzas (public/app/js/pantallas/finanzas.js) — el finanzas.css del hub original (calcado de Empresa › Finanzas de
+   la referencia), con solo las piezas de las pestañas portadas. Todo prefijado .fin-; lo que va en modales (fuera de
+   #finanzas) también. Ventas (crm.js) usa .fin-sk, .fin-btn2, .fin-btn3 y .fin-nota. */
+
+/* colores propios de Finanzas: el ámbar del cash (no es el dorado de marca) y el de la pauta */
+.c-cash{--c:#e9b343}
+.c-ads{--c:#f59e0b}
+.fin{--fin-borde:rgba(255,255,255,.07); --fin-tenue:#71717a; --fin-sec:#a1a1aa; --fin-pista:#28272c}
+
+/* ── pestañas grises (Resumen · Ventas · …): activa con relleno #343338, no dorado ── */
+.fin-tabs{display:inline-flex; max-width:100%; gap:2px; padding:3px; margin:0 0 24px; border-radius:12px; background:#16161c; border:1px solid #26262b;
+  overflow-x:auto; scrollbar-width:none}
+.fin-tabs::-webkit-scrollbar{display:none}
+.fin-tabs button{height:34px; padding:0 14px; border:0; border-radius:9px; background:none; color:var(--fin-sec,#a1a1aa); font:inherit; font-size:13px; font-weight:600;
+  white-space:nowrap; cursor:pointer; transition:color .12s, background .12s}
+.fin-tabs button:hover{color:#fff}
+.fin-tabs button.on{background:#343338; color:#fff}
+.fin-tabs.sub button{height:36px}
+
+/* ── barra de herramientas de cada pestaña ── */
+.fin-bar{display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:12px; margin:0 0 20px}
+.fin-bar-g{display:flex; flex-wrap:wrap; align-items:center; gap:10px; min-width:0}
+.fin-spin{width:16px; height:16px; border-radius:50%; border:2px solid rgba(212,165,58,.18); border-top-color:var(--gold); animation:finGira .7s linear infinite; flex:none}
+.fin-spin[hidden]{display:none}
+@keyframes finGira{to{transform:rotate(360deg)}}
+.fin-solo-nav .ui-seg{display:none}
+/* los chips de período un poco más angostos (294 px en la referencia) para que entre todo en una fila */
+.fin .ui-periodo .ui-seg-b{padding:0 9px}
+.fin-act{font-size:12px; color:var(--muted)}
+
+/* botones secundarios: 40 px (Comisión de cada closer) · 36 px (Filtros) · 28 px (Volver a pendientes) */
+.fin-btn2,.fin-btn3,.fin-btn-sm{display:inline-flex; align-items:center; justify-content:center; gap:8px; border:1px solid rgba(255,255,255,.08); color:#d4d4d8;
+  font:inherit; font-weight:600; cursor:pointer; white-space:nowrap; transition:background .12s, border-color .12s, color .12s}
+.fin-btn2{height:40px; padding:0 14px; border-radius:12px; background:#18181d; font-size:13px}
+.fin-btn3{height:36px; padding:0 14px; border-radius:10px; background:#16161c; font-size:13px}
+.fin-btn-sm{height:28px; padding:0 12px; border-radius:8px; background:#1b1b1e; font-size:13px; font-weight:500}
+.fin-btn2:hover,.fin-btn3:hover,.fin-btn-sm:hover{background:#202026; border-color:rgba(255,255,255,.14); color:#fff}
+.fin-btn2 .ui-ico,.fin-btn3 .ui-ico{color:#a1a1aa}
+.fin-btn3.on{border-color:rgba(212,165,58,.4); color:var(--gold-txt)}
+.fin-btn3 em{font-style:normal; font-size:11px; font-weight:700; min-width:18px; height:18px; padding:0 5px; border-radius:999px; background:var(--gold); color:#1a1408; display:inline-grid; place-items:center}
+
+/* segmentado con activo dorado (estados, filtros) */
+.fin-seg{display:inline-flex; align-items:center; gap:2px; height:38px; padding:3px; border-radius:10px; background:#16161c; border:1px solid rgba(255,255,255,.08)}
+.fin-seg button{display:inline-flex; align-items:center; gap:7px; height:30px; padding:0 12px; border:0; border-radius:7px; background:none; color:#a3a3a7;
+  font:inherit; font-size:13px; font-weight:600; cursor:pointer; white-space:nowrap}
+.fin-seg button:hover{color:#fff}
+.fin-seg button.on{background:rgba(212,165,58,.12); color:var(--gold-txt)}
+.fin-seg button em{font-style:normal; font-size:11px; font-weight:700; color:var(--rojo)}
+.fin-seg.pp{height:38px; margin-bottom:12px}
+
+/* ── 4 tiles grandes ── */
+.fin-tiles{display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:16px; margin-bottom:20px}
+.fin-tile{position:relative; display:flex; flex-direction:column; min-width:0; min-height:229px; padding:22px 22px 22px; border-radius:16px; overflow:hidden;
+  background:linear-gradient(160deg,#28282b 0%,#1d1d20 30%,#19191c 65%,#151517 100%);
+  border:1px solid rgba(255,255,255,.07); box-shadow:inset 0 1px 0 rgba(255,255,255,.08),0 6px 24px rgba(0,0,0,.45)}
+.fin-tile-h{display:flex; align-items:center; gap:10px; min-height:21px}
+.fin-tile-l{display:inline-flex; align-items:center; gap:10px; font-size:12px; font-weight:700; letter-spacing:.09em; text-transform:uppercase; color:#a1a1aa; white-space:nowrap}
+.fin-tile-l i{width:8px; height:8px; border-radius:50%; background:var(--c); flex:none}
+.fin-tile-h .fin-dlt{margin-left:auto}
+.fin-tile-v{display:flex; align-items:baseline; gap:8px; margin-top:18px; min-width:0; white-space:nowrap}
+.fin-tile-v small{font-size:20px; font-weight:600; color:#d0d0d4; letter-spacing:-.01em}
+.fin-tile-v b{font-size:54px; font-weight:700; letter-spacing:-.05em; line-height:1; color:#fff; font-family:'Inter',system-ui,sans-serif}
+.fin-tile-sub{margin-top:10px; font-size:12.5px; line-height:1.4; color:#8e8e94}
+/* la curva es la pieza compartida uiSparkArea (línea vertical + punto + tooltip); acá solo el alto, el degradé de
+   la referencia (32% → 4%) y el fundido del final, que va en el SVG y no en la caja: así el punto y la línea del hover se
+   siguen viendo sobre el último día */
+.fin-spark{margin:auto 0 2px; height:56px}
+.fin-spark .ui-spk{height:100%}
+.fin-spark svg{display:block; width:100%; height:100%; overflow:visible; -webkit-mask-image:linear-gradient(90deg,#000 80%,transparent 100%); mask-image:linear-gradient(90deg,#000 80%,transparent 100%)}
+.fin-spark linearGradient stop:first-child{stop-opacity:.32}
+.fin-spark linearGradient stop:last-child{stop-opacity:.04}
+.fin-spark .ui-g-vl{background:rgba(255,255,255,.18)}
+.fin-spark .ui-g-dot{width:9px; height:9px; margin:-4.5px 0 0 -4.5px; box-shadow:0 0 0 2px #1a1a1d}
+
+/* badge de variación: verde = bueno, rojo = malo (no sigue al signo) */
+.fin-dlt{display:inline-flex; align-items:center; gap:3px; height:21px; padding:0 7px; border-radius:6px; font-size:11px; font-weight:600; white-space:nowrap; font-variant-numeric:tabular-nums}
+.fin-dlt.bien{color:#4ade80; background:rgba(74,222,128,.10)}
+.fin-dlt.mal{color:#f0716a; background:rgba(240,113,106,.12)}
+.fin-dlt.nada{color:#5f5f66; background:none; padding:0 4px; cursor:help}
+
+/* ── tira de KPIs secundarios: una sola tarjeta partida en celdas ── */
+.fin-tira{display:grid; grid-auto-flow:column; grid-auto-columns:minmax(0,1fr); min-height:85px; margin-bottom:20px; border-radius:16px; overflow:hidden;
+  background:linear-gradient(100deg,#222225 0%,#1a1a1d 45%,#151518 100%); border:1px solid rgba(255,255,255,.07);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.06),0 6px 24px rgba(0,0,0,.35)}
+.fin-tira.alta{min-height:100px}
+.fin-tira-c{padding:20px; border-left:1px solid rgba(255,255,255,.07); min-width:0}
+.fin-tira-c:first-child{border-left:0}
+.fin-tira-c.clic{cursor:pointer}
+.fin-tira-c.clic:hover{background:rgba(255,255,255,.02)}
+.fin-tira-l{display:block; margin-bottom:9px; font-size:11px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:#71717a; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+.fin-tira-v{display:flex; flex-wrap:wrap; align-items:center; gap:6px 12px; font-size:20px; font-weight:600; letter-spacing:-.02em; color:#fff; font-variant-numeric:tabular-nums}
+.fin-tira-v b{font-weight:600}
+.fin-tira-v.oro{color:var(--gold-txt)} .fin-tira-v.rojo{color:var(--rojo)} .fin-tira-v.verde{color:var(--verde)}
+.fin-tira-riel{width:120px; height:6px; border-radius:999px; background:var(--fin-pista); overflow:hidden}
+.fin-tira-riel i{display:block; height:100%; border-radius:999px; background:var(--verde); transition:filter .12s}
+.fin-tira-c:hover .fin-tira-riel i{filter:brightness(1.2)}
+.fin-tira-sub{display:block; margin-top:6px; font-size:13px; color:#a1a1aa}
+.fin-par{white-space:nowrap}
+.fin-par small{font-size:inherit; font-weight:inherit; color:inherit}
+.fin-sk-tira{padding:22px}
+
+/* ── tarjetas de la grilla de 2 ── */
+.fin-g2{display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:16px; margin-bottom:20px; align-items:stretch}
+.fin-g1{margin-bottom:20px}
+.fin-card{display:flex; flex-direction:column; min-width:0; padding:22px; border-radius:16px; border:1px solid rgba(255,255,255,.07);
+  background:linear-gradient(160deg,#242427 0%,#1c1c1f 35%,#18181b 70%,#161619 100%);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.06),0 6px 24px rgba(0,0,0,.4)}
+.fin-card-h{display:flex; align-items:center; justify-content:space-between; gap:12px; min-height:28px; margin-bottom:12px}
+.fin-micro{font-size:12px; font-weight:600; letter-spacing:.08em; text-transform:uppercase; color:#7a7a80}
+.fin-total{display:flex; align-items:center; gap:12px; margin-bottom:12px}
+.fin-total b{font-size:24px; font-weight:700; letter-spacing:-.03em; color:#fff; font-variant-numeric:tabular-nums}
+.fin-link{background:none; border:0; padding:0; color:var(--gold-txt); font:inherit; font-size:14px; font-weight:500; cursor:pointer; text-decoration:none}
+.fin-link:hover{filter:brightness(1.15)}
+.fin-nota{margin:12px 0 0; font-size:12px; line-height:1.5; color:#77777d}
+.fin-riel{display:block; height:8px; border-radius:999px; background:var(--fin-pista); overflow:hidden; min-width:0}
+.fin-riel i{display:block; height:100%; border-radius:999px; background:var(--c,var(--gold-bar)); min-width:8px}
+.fin-riel i[style*="width:0.0%"]{min-width:0}
+
+/* ventas por closer: filas con barra; la fila bajo el mouse se resalta, el resto se apaga y el clic abre sus cobros */
+.fin-met{display:flex; flex-direction:column}
+.fin-met-f{display:grid; grid-template-columns:minmax(0,1fr) 130px 110px 40px; gap:12px; align-items:center; height:30px;
+  margin-inline:-8px; padding-inline:8px; border-radius:8px; transition:opacity .15s, background .15s}
+.fin-met-n{font-size:14px; color:#e4e4e7; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+.fin-met-f b{font-size:14px; font-weight:600; color:#fff; text-align:right; white-space:nowrap; font-variant-numeric:tabular-nums}
+.fin-met-f em{font-style:normal; font-size:12px; color:#71717a; text-align:right; font-variant-numeric:tabular-nums}
+.fin-met:hover .fin-met-f:not(:hover){opacity:.42}
+.fin-met-f.clic{cursor:pointer}
+.fin-met-f:hover{background:rgba(255,255,255,.035)}
+.fin-met-f:hover .fin-riel i{filter:brightness(1.18)}
+
+/* de dónde viene el cash */
+.fin-c-dona{min-height:213px}
+.fin-dona-w{display:flex; align-items:center; gap:36px; flex:1}
+.fin-dona{position:relative; width:128px; height:128px; flex:none}
+.fin-dona svg{display:block; width:128px; height:128px; overflow:visible}
+.fin-dona svg path,.fin-dona svg circle{transition:filter .12s, opacity .15s, transform .18s cubic-bezier(.2,.7,.2,1); transform-origin:64px 64px}
+.fin-dona svg [data-tip]:hover{filter:brightness(1.15)}
+/* sector bajo el mouse (o su fila de la leyenda): se agranda y el resto se apaga */
+.fin-dona svg [data-seg]{cursor:pointer}
+.fin-dona-w.hov .fin-dona [data-seg]:not(.on){opacity:.3}
+.fin-dona [data-seg].on{transform:scale(1.05); filter:brightness(1.12)}
+.fin-dona-w.hov .fin-ley-f:not(.on){opacity:.42}
+.fin-ley-f{transition:opacity .15s}
+.fin-ley-f.clic{cursor:pointer}
+.fin-dg-a{stop-color:color-mix(in srgb,var(--c) 92%,#fff)}
+.fin-dg-b{stop-color:color-mix(in srgb,var(--c) 70%,#000)}
+.fin-dona-c{position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; pointer-events:none}
+.fin-dona-c b{font-size:20px; font-weight:700; letter-spacing:-.04em; color:#fff; font-variant-numeric:tabular-nums}
+.fin-dona-c span{max-width:84px; font-size:9px; font-weight:600; letter-spacing:.12em; text-transform:uppercase; color:#5c5c60; margin-top:1px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+.fin-dona-w.hov .fin-dona-c span{color:#8a8a90}
+.fin-ley{flex:1; min-width:0; margin-right:-9px}
+.fin-ley-f{display:grid; grid-template-columns:10px minmax(0,1fr) auto auto auto; align-items:center; gap:12px; height:44px; border-top:1px solid rgba(255,255,255,.05)}
+.fin-ley-f:first-child{border-top:0}
+.fin-ley-pt{display:inline-block; width:10px; height:10px; border-radius:50%; background:var(--c); flex:none}
+.fin-ley-n{font-size:15px; color:#e4e4e7; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+.fin-ley-p{font-size:13px; color:#71717a; font-variant-numeric:tabular-nums}
+.fin-ley-f b{font-size:15px; font-weight:700; color:#fff; text-align:right; white-space:nowrap; font-variant-numeric:tabular-nums}
+
+/* cobros del período (mapa de calor de 5 niveles) */
+.fin-calor{display:grid; grid-template-columns:repeat(10,minmax(0,1fr)); gap:8px; margin-top:12px}
+.fin-calor i,.fin-calor-esc i{display:block; border-radius:8px; background:#27262c}
+.fin-calor i{aspect-ratio:1; cursor:default; transition:outline-color .1s, transform .1s}
+.fin-calor i:hover{outline:1px solid rgba(255,255,255,.45); transform:scale(1.08)}
+.fin-calor i.clic{cursor:pointer}
+.fin-calor i.n1,.fin-calor-esc i.n1{background:color-mix(in srgb,var(--verde) 30%,#1c1c1f)}
+.fin-calor i.n2,.fin-calor-esc i.n2{background:repeating-linear-gradient(45deg,color-mix(in srgb,var(--verde) 68%,#1c1c1f) 0 2.5px,color-mix(in srgb,var(--gold) 70%,#1c1c1f) 2.5px 5px)}
+.fin-calor i.n3,.fin-calor-esc i.n3{background:color-mix(in srgb,var(--verde) 72%,#1c1c1f)}
+.fin-calor i.n4,.fin-calor-esc i.n4{background:#d8b24f; box-shadow:0 0 10px rgba(216,178,79,.18)}
+.fin-calor-pie{display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:8px 14px; margin-top:auto; padding-top:18px}
+.fin-calor-esc{display:inline-flex; align-items:center; gap:6px; font-size:12px; color:#71717a}
+.fin-calor-esc i{width:14px; height:14px; border-radius:3px}
+.fin-calor-tot{display:inline-flex; flex-wrap:wrap; gap:6px 18px; font-size:13px; color:#71717a; white-space:nowrap}
+.fin-calor-tot b{color:#fff; font-weight:700; font-variant-numeric:tabular-nums}
+
+.fin-fuentes{margin:4px 0 0; font-size:12px; line-height:1.55; color:#6c6c72}
+
+/* ── tablas: tarjeta plana ── */
+.fin-tcard{border-radius:16px; border:1px solid rgba(255,255,255,.07); background:linear-gradient(180deg,#232326,#201f22); box-shadow:0 6px 24px rgba(0,0,0,.35); overflow:hidden; margin-bottom:20px}
+.fin-tw{overflow-x:auto}
+.fin-tabla{width:100%; border-collapse:collapse; font-size:14px}
+.fin-tabla th{padding:14px 16px 12px; text-align:left; font-size:11px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:#6d6d70; background:none; border-bottom:1px solid rgba(255,255,255,.06); white-space:nowrap; position:static}
+.fin-tabla td{padding:0 16px; height:46px; border-bottom:1px solid rgba(255,255,255,.06); color:#a8a7ab; vertical-align:middle; font-variant-numeric:tabular-nums}
+.fin-tabla tr:last-child td{border-bottom:0}
+.fin-tabla.liq td{height:61px}
+.fin-tabla .al-der{text-align:right}
+.fin-tabla tr.clic{cursor:pointer}
+.fin-tabla tbody tr:hover td{background:rgba(255,255,255,.022)}
+.fin-tabla td b{color:#fff; font-weight:600}
+.fin-tabla td small{display:block; font-size:12px; color:#86868c}
+.fin-tvacia{padding:6px}
+.fin-tvacia .ui-vacio2{border:0}
+.fin-fecha{font-size:13px; color:#99999b; white-space:nowrap}
+.fin-lead{font-size:15px; font-weight:500 !important; color:#f1f1f2 !important}
+.fin-sec{color:#a8a7ab}
+.fin-suf{font-size:12px; color:#6b6a6d}
+.fin-tag{display:inline-block; margin-left:8px; padding:1px 7px; border-radius:6px; font-size:11px; font-weight:600; color:#a1a1aa; background:#2a2a2f; vertical-align:1px; white-space:nowrap}
+.fin-verde{color:var(--verde) !important} .fin-rojo{color:var(--rojo) !important} .fin-oro{color:var(--gold-txt) !important} .fin-ambar{color:var(--ambar) !important}
+.fin-tot{white-space:nowrap}
+.fin-tot small{display:inline !important; font-size:11px !important; color:#8a8a90 !important; margin-right:2px}
+.fin-tot b{font-size:15px; font-weight:700}
+
+/* buscador, selects y panel de filtros */
+.fin-buscar{display:inline-flex; align-items:center; gap:8px; height:36px; width:185px; padding:0 12px; border-radius:10px; background:#16161c; border:1px solid rgba(255,255,255,.07); color:#71717a}
+.fin-buscar.chico{width:150px}
+.fin-buscar input{flex:1; min-width:0; background:none; border:0; outline:none; color:#ececee; font:inherit; font-size:13.5px}
+.fin-buscar input::placeholder{color:#71717a}
+.fin-buscar:focus-within{border-color:rgba(212,165,58,.45)}
+.fin-sel{height:36px; padding:0 30px 0 12px; border-radius:10px; background:#16161c url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%238e8e94' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E") no-repeat right 11px center;
+  border:1px solid rgba(255,255,255,.07); color:#e4e4e7; font:inherit; font-size:13.5px; appearance:none; -webkit-appearance:none; cursor:pointer; max-width:220px}
+.fin-sel option{background:#18181b}
+.fin-pop-w{position:relative}
+.fin-pop{position:absolute; top:calc(100% + 8px); left:0; z-index:40; width:300px; padding:14px; display:flex; flex-direction:column; gap:10px; border-radius:14px;
+  background:#18181b; border:1px solid #2c2c31; box-shadow:0 22px 50px -14px #000}
+.fin-pop[hidden]{display:none}
+.fin-pop .ui-campo span{font-size:11px}
+.fin-pop .ui-campo select{padding:7px 10px; font-size:13px}
+.fin-pop-pie{display:flex; justify-content:space-between; gap:10px; padding-top:4px}
+.fin-pop-pie .fin-link{font-size:13px}
+
+/* ── Pagos Pendientes ── */
+.fin-bar-pp{margin-bottom:20px}
+.fin-pp{padding:4px 0}
+.fin-pp-g{padding:16px 20px 10px; font-size:12px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:var(--c); border-bottom:1px solid rgba(255,255,255,.06)}
+.fin-pp-g.c-gris{color:#8a8a90}
+.fin-pp-f{display:grid; grid-template-columns:46px minmax(0,1fr) auto auto auto; align-items:center; gap:14px; min-height:74px; padding:12px 20px; border-bottom:1px solid rgba(255,255,255,.05)}
+.fin-pp-f:last-child{border-bottom:0}
+.fin-pp-fecha{width:46px; height:46px; border-radius:10px; display:flex; flex-direction:column; align-items:center; justify-content:center; line-height:1.05;
+  background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.1); color:#a1a1aa}
+.fin-pp-fecha b{font-size:16px; font-weight:700}
+.fin-pp-fecha span{font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:.04em}
+.fin-pg-vencido .fin-pp-fecha{background:rgba(248,113,113,.15); border-color:rgba(248,113,113,.35); color:var(--rojo)}
+.fin-pg-porvencer .fin-pp-fecha{background:rgba(212,165,58,.12); border-color:rgba(212,165,58,.32); color:var(--gold-txt)}
+.fin-pg-completado .fin-pp-fecha{background:rgba(52,211,153,.1); border-color:rgba(52,211,153,.28); color:var(--verde)}
+.fin-pg-nopaga .fin-pp-fecha{background:rgba(248,113,113,.08); border-color:rgba(248,113,113,.25); color:#c86b6b}
+.fin-pp-t{min-width:0}
+.fin-pp-t > div{display:flex; align-items:baseline; gap:10px; min-width:0; flex-wrap:wrap}
+.fin-pp-t b{font-size:16px; font-weight:600; color:#fff}
+.fin-pp-t em{font-style:normal; font-size:13px; color:#b49df6}
+.fin-pp-t small{display:block; margin-top:4px; font-size:14px; color:#a1a1aa; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+.fin-pp-t small .ui-ico{vertical-align:-2px; color:#77777d}
+.fin-pp-m{display:flex; flex-direction:column; align-items:flex-end; gap:5px; text-align:right}
+.fin-pp-m b{font-size:17px; font-weight:700; color:#fff; white-space:nowrap; font-variant-numeric:tabular-nums}
+.fin-pg-vencido .fin-pp-m b{color:var(--rojo)}
+.fin-pp-m small{font-size:13px}
+.fin-pp-ab{display:block; width:85px; height:6px; border-radius:999px; background:var(--fin-pista); overflow:hidden}
+.fin-pp-ab i{display:block; height:100%; border-radius:999px; background:var(--verde)}
+.fin-cobrar{display:inline-flex; align-items:center; gap:6px; height:28px; padding:0 11px; border-radius:8px; border:1px solid rgba(52,211,153,.3); background:rgba(52,211,153,.12);
+  color:var(--verde); font:inherit; font-size:14px; font-weight:600; cursor:pointer; white-space:nowrap}
+.fin-cobrar:hover{background:rgba(52,211,153,.2)}
+.fin-pp-acc{display:inline-flex; align-items:center; gap:4px}
+.fin-pp-acc button:not(.fin-btn-sm){width:30px; height:30px; display:grid; place-items:center; border:0; border-radius:8px; background:none; color:#8a8a90; cursor:pointer}
+.fin-pp-acc button:not(.fin-btn-sm):hover{background:#26262b; color:#fff}
+
+/* ── Liquidaciones ── */
+.fin-miembro{display:flex; align-items:center; gap:12px; min-width:0}
+.fin-miembro b{display:block; font-size:15px; font-weight:500 !important; color:#fff}
+.fin-miembro small{font-size:13px !important; color:#8a8a90 !important; margin-top:1px}
+.fin-av{width:32px; height:32px; flex:none; border-radius:50%; display:grid; place-items:center; font-size:12px; font-weight:600; letter-spacing:.02em;
+  color:color-mix(in srgb,var(--c) 85%,#fff); background:color-mix(in srgb,var(--c) 18%,#1c1c1f)}
+.fin-est{display:inline-flex; align-items:center; gap:7px; font-size:14px; font-weight:600; color:#d4d4d8; white-space:nowrap}
+.fin-est i{width:7px; height:7px; border-radius:50%; background:var(--c)}
+.fin-est-b{background:none; border:0; padding:4px 6px; margin:-4px -6px; border-radius:8px; cursor:pointer; font:inherit}
+.fin-est-b:hover{background:rgba(255,255,255,.05)}
+.fin-tabla td .fin-ambar{display:block; font-size:11.5px; margin-top:2px}
+.fin-tabla td .fin-sec small{display:inline; font-size:11.5px}
+.fin-como{margin:0 0 20px; font-size:12.5px; color:#86868c}
+.fin-como summary{display:inline-flex; align-items:center; gap:7px; cursor:pointer; color:#86868c; font-weight:500; list-style:none}
+.fin-como summary::-webkit-details-marker{display:none}
+.fin-como summary:hover{color:#d6d6da}
+.fin-como > div{margin-top:10px; padding:14px 16px; border-radius:12px; background:#18181b; border:1px solid rgba(255,255,255,.06); line-height:1.6}
+.fin-como p{margin:0 0 8px} .fin-como p:last-child{margin:0}
+.fin-como b{color:#d6d6da}
+
+/* ── modales ── */
+.fin-det-tot{display:flex; flex-wrap:wrap; gap:6px 28px; margin:0 0 14px; font-size:14px; color:#8a8a90}
+.fin-det-tot b{color:#fff; font-weight:700; font-variant-numeric:tabular-nums}
+.fin-det-tabla{max-height:52vh; overflow:auto; border-radius:12px; background:#1d1c1f}
+.fin-det-tabla .fin-tabla th{position:sticky; top:0; z-index:1; background:#1a1a1d; color:#78787a}
+.fin-det-tabla .fin-tabla td{height:42px}
+.fin-fees{display:flex; flex-direction:column}
+.fin-fee-f{display:flex; align-items:center; justify-content:space-between; gap:12px; min-height:48px; border-bottom:1px solid rgba(255,255,255,.05); font-size:14px; color:#e4e4e7}
+.fin-fee-f small{font-size:12px; color:#86868c}
+.fin-inp-suf{display:inline-flex; align-items:center; height:36px; width:120px; padding:0 12px; border-radius:10px; background:#242427; border:1px solid rgba(255,255,255,.08)}
+.fin-inp-suf input{flex:1; min-width:0; background:none; border:0; outline:none; color:#fff; font:inherit; font-size:15px; font-weight:600; -moz-appearance:textfield}
+.fin-inp-suf input::-webkit-outer-spin-button,.fin-inp-suf input::-webkit-inner-spin-button{-webkit-appearance:none; margin:0}
+.fin-inp-suf em{font-style:normal; font-size:13px; color:#8a8a90}
+.fin-inp-suf:focus-within{border-color:rgba(212,165,58,.5)}
+.fin-kvs{display:flex; flex-direction:column}
+.fin-kv{display:grid; grid-template-columns:150px minmax(0,1fr); gap:14px; padding:10px 0; border-bottom:1px solid rgba(255,255,255,.05); font-size:14px}
+.fin-kv > span{color:#86868c}
+.fin-kv > div{color:#e4e4e7; min-width:0; overflow-wrap:anywhere}
+.fin-kv small{color:#86868c}
+.fin-kv-acc{display:flex; flex-wrap:wrap; gap:10px; margin-top:16px}
+
+/* ── esqueleto mientras carga (la referencia deja la pestaña en blanco; acá no) ── */
+.fin-sk{display:block; border-radius:10px; background:linear-gradient(90deg,#1c1c1f 0%,#26262a 50%,#1c1c1f 100%); background-size:200% 100%; animation:finSk 1.3s ease-in-out infinite; margin-bottom:12px}
+.fin-tile .fin-sk{margin-top:10px}
+@keyframes finSk{0%{background-position:100% 0}100%{background-position:-100% 0}}
+
+/* ── angosto ── */
+@media (max-width:1180px){
+  .fin-tiles{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .fin-g2{grid-template-columns:1fr}
+}
+@media (max-width:900px){
+  .fin-tiles{grid-template-columns:1fr}
+  .fin-tira{grid-auto-flow:row; grid-template-columns:1fr}
+  .fin-tira-c{border-left:0; border-top:1px solid rgba(255,255,255,.07)}
+  .fin-tira-c:first-child{border-top:0}
+  .fin-pp-f{grid-template-columns:46px minmax(0,1fr) auto}
+  .fin-pp-f .fin-cobrar,.fin-pp-f .fin-pp-acc{grid-column:2 / -1}
+  .fin-met-f{grid-template-columns:minmax(0,1fr) 70px auto 34px}
+  .fin-dona-w{flex-direction:column; align-items:stretch}
+  .fin-dona{align-self:center}
+  .fin-kv{grid-template-columns:1fr}
+}

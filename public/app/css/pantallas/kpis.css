@@ -1,0 +1,90 @@
+/* KPIs (js/pantallas/kpis.js) — la parte de KPIs de operaciones.css del hub original (medidas de la referencia) y las piezas op-
+   que usa: el segmentado S, los botones y los grises. Las tarjetas también se pintan en el Inicio (fijadas). */
+
+:root{
+  --op-t1:#fbfbfc; --op-t2:#97979d; --op-t3:#6c6c71; --op-oro:#d2b053; --op-ctrl:#232327; --op-ctrl-b:#2d2c31; --op-seg:#16161a; --op-on:#303034;
+  --op-btn-oro:linear-gradient(180deg,#d4af56 0%,#c9a34b 100%); --op-glow:0 6px 18px rgba(210,172,83,.25);
+}
+.op-cargando{font-size:14px; color:var(--op-t2); margin:0}
+.op-gris{color:var(--op-t3); font-size:13px}
+
+/* segmentado S (con contador) */
+.op-seg{display:inline-flex; align-items:center; gap:4px; background:var(--op-seg); border:1px solid #28282b; border-radius:12px; padding:4px; max-width:100%; overflow-x:auto; scrollbar-width:none}
+.op-seg::-webkit-scrollbar{display:none}
+.op-seg button{display:inline-flex; align-items:center; gap:8px; height:37.5px; padding:0 16px; border:0; border-radius:8px; background:none; color:var(--op-t2);
+  font:inherit; font-size:13px; font-weight:500; letter-spacing:-.02em; cursor:pointer; white-space:nowrap; transition:background .15s,color .15s}
+.op-seg button:hover{color:#ececee; background:#1f1e24}
+.op-seg button.on{background:var(--op-on); color:var(--op-t1)}
+.op-seg button em{font-style:normal; font-size:10px; font-weight:500; color:var(--op-t3); margin-left:-3px}
+.op-seg-s{border-color:#252429; border-radius:10px; padding:3px; gap:2px}
+.op-seg-s button{height:29px; padding:0 12px; border-radius:7px; gap:5px}
+
+/* botones de la cabecera */
+.op-btn-oro{display:inline-flex; align-items:center; gap:8px; height:37px; padding:0 16px; border-radius:10px; border:0; background:var(--op-btn-oro); color:#1a1306;
+  font:inherit; font-size:14px; font-weight:600; cursor:pointer; white-space:nowrap; box-shadow:var(--op-glow)}
+.op-btn-oro:hover{filter:brightness(1.05)}
+.op-btn-sec{display:inline-flex; align-items:center; gap:8px; height:36px; padding:0 14px; border-radius:10px; border:1px solid #252527; background:#141416;
+  color:#d4d4d8; font:inherit; font-size:14px; font-weight:500; cursor:pointer; white-space:nowrap}
+.op-btn-sec .ui-ico{color:var(--op-t2)}
+.op-btn-sec:hover{background:#1b1b1e; border-color:#303034; color:#fff}
+
+/* ═════════════ KPIs ═════════════ */
+.kp{padding-bottom:24px}
+.kp-cab{display:flex; align-items:center; gap:10px; flex-wrap:wrap}
+.kp-cargando{margin-top:6px}
+.kp > .op-seg{margin-top:4px}
+.kp-per{display:flex; align-items:center; flex-wrap:wrap; gap:8px 14px; margin:16px 0 16px; min-height:36px}
+.kp-per-t{font-size:12.5px; color:var(--op-t3); min-width:0}
+.kp-closer select{max-width:220px}
+.kp-grid{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:16px}
+@media(max-width:1100px){.kp-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:720px){.kp-grid{grid-template-columns:1fr}}
+.kp-card{display:flex; flex-direction:column; min-height:124px; padding:20px; border-radius:14px; background:linear-gradient(135deg,#1f1f21 0%,#19191b 100%); border:1px solid #2c2c30;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.03); min-width:0; transition:border-color .15s}
+.kp-card > header{display:flex; align-items:center; gap:10px; min-height:22px}
+.kp-et{flex:1; min-width:0; font-size:11px; font-weight:600; letter-spacing:.08em; text-transform:uppercase; color:var(--op-t2); white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+.kp-der{display:inline-flex; align-items:center; gap:10px; flex:none}
+.kp-badge{display:inline-flex; align-items:center; gap:4px; height:22px; padding:0 8px; border-radius:999px; background:#1e1e21; border:1px solid #363638; color:var(--op-t2);
+  font-family:'JetBrains Mono',ui-monospace,monospace; font-size:11px; font-weight:600; line-height:1}
+.kp-badge i{width:6px; height:6px; border-radius:50%; background:currentColor}
+.kp-badge.on{background:#26303e; border-color:#3b4a5c; color:#8ab8ec}
+.kp-badge.on.ok{background:#1d3127; border-color:#2e5642; color:#6cd59b}
+.kp-badge.on.mal{background:#3a2326; border-color:#5c3438; color:#e8868e}
+.kp-pin{width:20px; height:20px; display:grid; place-items:center; padding:0; border:0; border-radius:6px; background:none; color:var(--op-t3); cursor:pointer}
+.kp-pin .ui-ico{width:12px; height:12px}
+.kp-pin:hover{color:#e4e4e7; background:#26262a}
+.kp-pin.on{color:var(--op-oro)}
+.kp-pin.on .ui-ico{fill:rgba(210,176,83,.25)}
+.kp-v{display:block; margin-top:13px; font-size:28px; font-weight:700; letter-spacing:-.04em; line-height:1.1; color:var(--op-t1); font-variant-numeric:tabular-nums; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+.kp-skel{display:block; width:46%; height:26px; border-radius:7px; background:linear-gradient(90deg,#26262a 0%,#303035 50%,#26262a 100%); background-size:200% 100%; animation:kpSkel 1.2s linear infinite}
+@keyframes kpSkel{from{background-position:200% 0} to{background-position:-200% 0}}
+.kp-card footer{display:flex; flex-direction:column; gap:2px; margin-top:6px}
+.kp-obj{font-size:12px; color:var(--op-t3)}
+.kp-obj b{font-weight:700; color:#e4e4e7}
+.kp-obj.sin{font-style:italic}
+.kp-info{display:grid; place-items:center; width:18px; height:18px; color:#55555b; cursor:help}
+.kp-info:hover{color:#c9c9cd}
+.kp-info.ojo{color:#a88a45}
+.kp-card.clic{cursor:pointer}
+.kp-card.clic:hover{border-color:#3a3a40}
+.kp-v[data-tip]{cursor:inherit}
+.kp-badge[data-tip], .kp-info[data-tip]{cursor:help}
+.kp-card footer.con-riel{flex-direction:row; align-items:center; justify-content:space-between; gap:12px}
+.kp-card footer.con-riel .kp-obj{min-width:0; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+.kp-riel{position:relative; flex:none; width:92px; height:6px; border-radius:999px; background:#2a2a2c; cursor:help}
+.kp-riel::after{content:''; position:absolute; inset:-9px -4px}
+.kp-riel i{display:block; height:100%; border-radius:999px; background:#8ab8ec; transform-origin:left; animation:ui-crece .7s cubic-bezier(.2,.7,.2,1) both; transition:filter .12s}
+.kp-riel.ok i{background:#6cd59b}
+.kp-riel.atras i{background:#e8bd61}
+.kp-riel.mal i{background:#e06c75}
+.kp-riel em{position:absolute; top:-4px; width:2px; height:14px; margin-left:-1px; border-radius:2px; background:#f4f4f5; opacity:.55; pointer-events:none}
+.kp-riel:hover i{filter:brightness(1.18)}
+.kp-riel:hover em{opacity:.9}
+@media (prefers-reduced-motion: reduce){.kp-riel i{animation:none}}
+/* detalle de una tarjeta (modal) */
+.kp-det .ui-tabla td{padding:10px 12px}
+.kp-det-n{white-space:nowrap}
+.kp-det-res{margin:0 0 14px}
+.kp-det-nota{margin:14px 0 0}
+.kp-vacio{grid-column:1/-1}
+.kp-inicio{display:flex; flex-direction:column; gap:16px}
